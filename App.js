@@ -5,9 +5,9 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 app.get('/', (req, res)=>{
-	res.send('Hello from express server');	
+	res.send('Hello from GetFunded');	
 });
 
-app.listen(3000, (error)=>{
-	console.log('express server started at 3000...');
+app.listen(4000, (error)=>{
+	console.log('express server started at 4000...');
 });
