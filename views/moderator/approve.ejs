@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Approve User</title>
+</head>
+<body>
+	<form method="post">
+		<fieldset>
+			<legend>Approve User</legend>
+			<table>
+				<tr>
+					<td>Event Name:</td>
+					<td><%=approve[0].eventName %></td>
+				</tr>
+				<tr>
+					<td>Creator Id :</td>
+					<td><%=approve[0].creatorId %></td>
+				</tr>
+				<tr>
+					<td>Description :</td>
+					<td><%=approve[0].description%></td>
+                </tr>
+                <tr>
+					<td>Category Id :</td>
+					<td><%=approve[0].categoryId %></td>
+				</tr>
+				<tr>
+					<td>Goal Amount :</td>
+					<td><%=approve[0].goalAmount %></td>
+				</tr>
+				<tr>
+					<td>Goal Date :</td>
+					<td><%=approve[0].goalDate %></td>
+                </tr>
+
+                <tr>
+					<td>Status :</td>
+					<td><%=approve[0].isApproved %></td>
+				</tr>
+				<tr>
+					<td>Created At :</td>
+					<td><%=approve[0].createdAt %></td>
+                </tr>
+                
+				
+			</table>
+			<div>
+				<h3>Are you sure?</h3>
+				<input type="submit" name="submit" value="Confirm">
+			</div>
+		</fieldset>
+	</form>
+</body>
+</html>
