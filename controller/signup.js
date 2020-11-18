@@ -21,7 +21,7 @@ router.post('/', (req, res)=>{
 	
 	userModel.insert(user, function(status){
 		if(status){
-			res.redirect('/login?success' + encodeURIComponent('Account Created'));
+			res.redirect('/login?success=' + encodeURIComponent('Account Created! Please login with your username and password'));
 		}else{
 			res.redirect('/signup?error=' + encodeURIComponent('SQL Error'));
 		}

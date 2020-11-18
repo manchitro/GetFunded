@@ -6,7 +6,7 @@ function getConnection(callback){
 	  host     : '127.0.0.1',
 	  user     : 'root',
 	  password : '',
-	  database : 'node1'
+	  database : 'getfundeddb'
 	});
 	 
 	connection.connect(function(err) {
@@ -38,6 +38,7 @@ module.exports = {
 				if(status){
 					callback(true);
 				}else{
+					console.log(error);
 					callback(false);
 				}
 			});
