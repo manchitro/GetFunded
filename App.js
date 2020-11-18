@@ -7,6 +7,7 @@ const login = require("./controller/login");
 const signup = require("./controller/signup");
 const logout = require("./controller/logout");
 const user = require("./controller/user");
+const moderator = require("./controller/moderator");
 const app = express();
 
 //config
@@ -28,6 +29,7 @@ app.use("/login", login);
 app.use("/signup", signup);
 app.use("/logout", logout);
 app.use("/user", user);
+app.use("/moderator", moderator);
 
 //route
 app.get("/", (req, res) => {
