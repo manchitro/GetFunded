@@ -3,7 +3,9 @@ const userModel	= require.main.require('./models/userModel');
 const router 	= express.Router();
 
 router.get('/', (req, res)=>{
-	res.render('login/index')
+	var successMessage = req.query.success;
+
+	res.render('login/index', {alert: successMessage});
 })
 
 router.post('/', (req, res)=>{
