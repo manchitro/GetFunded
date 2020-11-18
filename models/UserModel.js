@@ -3,17 +3,11 @@ const db = require('./db');
 module.exports ={
 
 	validate: function(user, callback){
-		var sql = "select * from user where username='"+user.username+"' and password='"+user.password+"'";
-		db.getResults(sql, function(results){
-			if(results.length > 0){
-				callback(true);
-			}else{
-				callback(false);
-			}
-		});
+		
+		
 	},
 	getById: function(id, callback){
-		var sql = "select * from user WHERE id="+id;
+		var sql = "select * from users WHERE id="+id;
 
         db.getResults(sql, function(results){
             callback(results);
@@ -21,7 +15,7 @@ module.exports ={
 
 	},
 	getAll: function(callback){
-		var sql = "select * from user";
+		var sql = "select * from users";
 		db.getResults(sql, function(results){
 			callback(results);
 		});
@@ -37,16 +31,16 @@ module.exports ={
 		});
 	},
 	update: function(user, callback){
-		var sql= "UPDATE user SET username='"+user.username+"', password ='"+user.password +"', type='"+user.type +"' where id="+user.data;
-		
+		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
+		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.username +"', email='"+user.email +"' where id="+user.id;
 		//console.log(sql);
-        
+        console.log(sql);
 		db.execute(sql, function(status){
 			callback(status);
 		});
 	},
 	delete: function(id, callback){
-		var sql = "DELETE FROM user WHERE id="+id;
+		var sql = "DELETE FROM users WHERE id="+id;
         db.execute(sql, function(status){
             callback(status);
         });
