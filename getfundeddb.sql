@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2020 at 06:26 PM
+-- Generation Time: Nov 18, 2020 at 06:59 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -91,9 +91,18 @@ CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
   `senderId` int(11) NOT NULL,
   `receiverId` int(11) NOT NULL,
-  `messageText` int(11) NOT NULL,
+  `messageText` text NOT NULL,
   `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `senderId`, `receiverId`, `messageText`, `createdAt`) VALUES
+(1, 1, 2, 'Hello', '2020-11-18 23:48:01'),
+(2, 2, 1, 'Hello again', '2020-11-18 23:48:36'),
+(3, 2, 1, 'ki obostha', '2020-11-18 23:48:59');
 
 -- --------------------------------------------------------
 
@@ -106,7 +115,7 @@ CREATE TABLE `reports` (
   `creatorId` int(11) NOT NULL,
   `eventId` int(11) NOT NULL,
   `message` text NOT NULL,
-  `createdAt` int(11) NOT NULL
+  `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -121,7 +130,7 @@ CREATE TABLE `users` (
   `userName` text NOT NULL,
   `email` text NOT NULL,
   `password` text NOT NULL,
-  `userType` int(11) NOT NULL,
+  `userType` text NOT NULL,
   `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -130,7 +139,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `userName`, `email`, `password`, `userType`, `createdAt`) VALUES
-(3, 'ewf', '0', 'afwe@gmail.com', 'f7Yrcjf2$DjY', 0, '2020-11-18 13:28:19');
+(3, 'ewf', '0', 'afwe@gmail.com', 'f7Yrcjf2$DjY', '0', '2020-11-18 13:28:19');
 
 -- --------------------------------------------------------
 
@@ -230,7 +239,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reports`
