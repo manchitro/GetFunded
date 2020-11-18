@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2020 at 05:56 PM
+-- Generation Time: Nov 18, 2020 at 06:26 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -118,7 +118,7 @@ CREATE TABLE `reports` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `userName` int(11) NOT NULL,
+  `userName` text NOT NULL,
   `email` text NOT NULL,
   `password` text NOT NULL,
   `userType` int(11) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `userName`, `email`, `password`, `userType`, `createdAt`) VALUES
-(3, 'ewf', 0, 'afwe@gmail.com', 'f7Yrcjf2$DjY', 0, '2020-11-18 13:28:19');
+(3, 'ewf', '0', 'afwe@gmail.com', 'f7Yrcjf2$DjY', 0, '2020-11-18 13:28:19');
 
 -- --------------------------------------------------------
 
