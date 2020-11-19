@@ -21,8 +21,8 @@ module.exports ={
 		});
 
 	},
-	insert: function(user, callback){
-		var sql = "insert into users (name, username, email, password, usertype, createdat) VALUES ('"+user.name+"' , '"+user.username+"' ,  '"+user.email+"' , '"+user.password+"' , '"+user.userType+"', current_timestamp() )";
+	insert: function(sId,message, callback){
+		var sql = "insert into messages (senderId, 	receiverId, messageText, createdAt) VALUES (1 , '"+sId+"' ,  '"+message+"', current_timestamp() )";
 		
 		//console.log(sql);
 
@@ -38,7 +38,7 @@ module.exports ={
 		});
 	},
 	delete: function(id, callback){
-		var sql = "DELETE FROM events WHERE id="+id;
+		var sql = "DELETE FROM users WHERE id="+id;
         db.execute(sql, function(status){
             callback(status);
         });

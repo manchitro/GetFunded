@@ -67,12 +67,12 @@
             <td>
               <% if(EventList[i].isApproved==0 ){ %>
               <a href="/moderator/approve/<%=EventList[i].id%>">Approve</a> 
-              <a href="/user/decline/<%=EventList[i].id%>">Decline</a>
-              <a href="/user/modify/<%=EventList[i].id%>">Modify</a>
+              <a href="/moderator/decline/<%=EventList[i].id%>">Decline</a>
+              <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
               <% } else { %>
               
                 
-                <a href="/user/modify/<%=EventList[i].id%>">Modify</a>
+                <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
                 <% } %>    
             </td>
           </tr>
