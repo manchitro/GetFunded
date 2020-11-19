@@ -33,7 +33,71 @@
     </div>
     <div style="margin-left: 130px">
       <div class="w3-container tab" id="Events" style="display: none">
+        
         <h2>Events</h2>
+        
+
+        <a href="/home">Back</a> |
+        <div><a href="/logout">logout</a></div>
+        <br>
+      
+        <table border="1">
+          <tr>
+            <td>Id</td>
+            <td>Event Name</td>
+            <td>Creator Id</td>
+            <td>Description</td>
+            <td>Goal Amount</td>
+            <td>Goal Date</td>
+            <td>Status</td>
+            <td>Created At</td>
+            <td>Action</td>
+          </tr>
+      
+          <% for(var i=0; i< EventList.length; i++ ){ %>
+            <tr>
+            <td><%= EventList[i].id %></td>
+            <td><%= EventList[i].eventName %></td>
+            <td><%= EventList[i].creatorId %></td>
+            <td><%= EventList[i].description %></td>
+            <td><%= EventList[i].goalAmount %></td>
+            <td><%= EventList[i].goalDate %></td>
+            <td><%= EventList[i].isApproved %></td>
+            <td><%= EventList[i].createdAt %></td>
+            <td>
+              <% if(EventList[i].isApproved==0 ){ %>
+              <a href="/moderator/approve/<%=EventList[i].id%>">Approve</a> 
+              <a href="/moderator/decline/<%=EventList[i].id%>">Decline</a>
+              <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
+              <% } else { %>
+              
+                
+                <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
+                <% } %>    
+            </td>
+          </tr>
+          <% } %>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
 
       <div class="w3-container tab" id="Contact" style="display: none">
