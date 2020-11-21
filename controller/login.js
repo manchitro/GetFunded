@@ -17,6 +17,7 @@ router.post("/", (req, res) => {
   userModel.validate(user, function (gotUser) {
     if (gotUser) {
       res.cookie("uname", req.body.username);
+      res.cookie("id", gotUser[0].id);
       if (gotUser[0].userType === "admin") {
         res.redirect("/admin");
       } else if (gotUser[0].userType === "user") {

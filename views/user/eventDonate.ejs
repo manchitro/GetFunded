@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>View Events</title>
+<title>Event donate</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,51 +12,39 @@
   <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
   <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
-  <a href="/user/logout" class="w3-bar-item w3-button">logout</a>
 </div>
 
 <div style="margin-left:15%">
 
-<div class="w3-container w3-light-grey">
-<nav class="navbar navbar-light bg-light justify-content-between">
-	  <a class="navbar-brand" href="/user/viewEvents">Events</a>
-	  <form class="form-inline">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	  </form>
-	</nav>  
-</div>
+
 
 
 
 <div class="w3-container">
 <div class="container">    
+	  <form method="post">
 	  <table class="table table-hover">
-	      <tr>
-	        <th>id</th>
-	        <th>eventName</th>
-	        <th>eventPicture</th>
-	        <th>description</th>
-	        <th>goalAmount</th>
-	        <th>goalDate</th>
-	        <th>Action</th>
-	      </tr>
-	    
+	    <tr>
+	      <th>id</th>
+	      <th>amount</th>
+	      <th>donorId</th>
+	      <th>donationMessage</th>
+	      <th>createdAt</th>
+	    </tr>
 
-		  <% for(var i=0; i< eventlist.length; i++ ){ %>
-		  <tr>
-		  	<td><%= eventlist[i].id %></td>
-		  	<td><%= eventlist[i].eventName %></td>
-		  	<td><%= eventlist[i].eventPicture %></td>
-		  	<td><%= eventlist[i].description %></td>
-		  	<td><%= eventlist[i].goalAmount %></td>
-		  	<td><%= eventlist[i].goalDate %></td>
-		  	<td>
-		  		<a href="/user/eventMore/<%=eventlist[i].id%>">More</a>  
-		  	</td>
-		  </tr>
-		  <% } %>
-
+		<%var data = 0;
+		 for(var i=0; i< donationlist.length; i++ ){ 
+		 data = donationlist[i].id ; %>
+		<tr>
+			<td><%= donationlist[i].id %></td>
+			<td><%= donationlist[i].amount %></td>
+			<td><%= donationlist[i].donorId %></td>
+			<td><%= donationlist[i].donationMessage %></td>
+			<td><%= donationlist[i].createdAt%></td>
+		</tr>
+		<% } %>
 	  </table>
+	  </form>
 	</div>
 </div>
 

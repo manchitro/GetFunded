@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<title>Delete Events</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">Menu</h3>
+  <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
+  <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
+  <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
+</div>
+
+<div style="margin-left:15%">
+
+<div class="w3-container w3-light-grey">
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" href="/user/viewEvents">Events</a>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+  </nav>  
+</div>
+
+
+
+<div class="w3-container">
+<div class="container"> 
+<form method="post">
+  <table class="table table-hover">
+        <tr>
+          <td>eventName :</td>
+          <td><%=deletelist[0].eventName%></td>
+        </tr>
+         <tr>
+          <td>description :</td>
+          <td><%=deletelist[0].description%></td>
+        </tr>
+         <tr>
+          <td>categoryId :</td>
+          <td><%=deletelist[0].categoryId%></td>
+        </tr>
+         <tr>
+          <td>goalAmount :</td>
+          <td><%=deletelist[0].goalAmount%></td>
+        </tr>
+         <tr>
+          <td>goalDate :</td>
+          <td><%=deletelist[0].goalDate%></td>
+        </tr>
+         <tr>
+          <td>Picture :</td>
+          <td><img src="<%=deletelist[0].eventPicture%>" height="128px"></td>
+        </tr>
+      </table>
+      <div>
+        <h3>Are you sure?</h3>
+       <button type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+</form>   
+    
+  </div>
+</div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
