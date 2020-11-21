@@ -58,10 +58,10 @@ router.post('/createEvent/:id', (req, res)=>{
 
 		eventName     : 	req.body.eventName,
 		eventPicture  : 	req.body.eventPicture,
-		creatorId     : 	res.cookie
+		creatorId     : 	res.cookie,
 		description   : 	req.body.description,
 		categoryId    : 	req.body.categoryId,
-		goalAmount    : 	req.body.goalAmount
+		goalAmount    : 	req.body.goalAmount,
 		goalDate      : 	req.body.goalDate,
 		isApproved    : 	req.body.isApproved
 	}; 
