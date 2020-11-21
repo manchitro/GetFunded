@@ -70,6 +70,7 @@ module.exports ={
         db.execute(sql, function(status){
             callback(status);
         });
+
 	},
 	deleteEvent: function(id, callback){
 		var sql = "DELETE FROM events WHERE id="+id;
@@ -88,6 +89,12 @@ module.exports ={
 		db.execute(sql, function(status){
 			callback(status);
 		});
+	},
+	deleteEvent: function(id, callback){
+		var sql = "DELETE FROM events WHERE id="+id;
+        db.execute(sql, function(status){
+            callback(status);
+        });
 	}
 
 }

@@ -10,8 +10,11 @@ router.post('/', (req, res)=>{
 });
 
 router.get('/', (req, res)=>{
+
 	console.log("destroying session");
 	req.session.destroy();
+	// res.clearCookie('uname');
+	//console.log(req.session.user);
 	// res.clearCookie('uname');
 	res.redirect('/login');
 })

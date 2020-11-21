@@ -24,40 +24,6 @@ router.get('/eventMore/:id', (req, res)=>{
 	});	
 });
 
-router.get('/createEvent', (req, res)=>{
-	res.render('user/createEvent');	
-});
-
-router.post('/createEvent/:id', (req, res)=>{
-	var user = {
-
-		eventName     : 	req.body.eventName,
-		eventPicture  : 	req.body.eventPicture,
-		creatorId     : 	req.cookies['id'],
-		description   : 	req.body.description,
-		categoryId    : 	req.body.categoryId,
-		goalAmount    : 	req.body.goalAmount,
-		goalDate      : 	req.body.goalDate
-	}; 
-	eventModel.insertEvent(user, function(status){
-		if(status){
-			res.redirect('/user/viewEvents');
-		}else{
-			res.redirect('user/createEvent/:id');
-		}
-	});
-});
-
-router.get('/myEvent', (req, res)=>{
-	var creatorId = req.cookies['id'];
-    //res.send(data);
-    eventModel.getAllMyEvents(creatorId, function(results){
-		console.log(results);
-        res.render('user/myEvent', {myEventlist : results});
-    });
-	
-});
-
 router.get('/eventEdit/:id', (req, res)=>{
 	var data = req.params.id;
     //res.send(data);
@@ -88,6 +54,38 @@ router.post('/eventEdit/:id', (req, res)=>{
 	});
 });
 
+
+router.post('/createEvent/:id', (req, res)=>{
+	var user = {
+
+		eventName     : 	req.body.eventName,
+		eventPicture  : 	req.body.eventPicture,
+		creatorId     : 	req.cookies['id'],
+		description   : 	req.body.description,
+		categoryId    : 	req.body.categoryId,
+		goalAmount    : 	req.body.goalAmount,
+		goalDate      : 	req.body.goalDate
+	}; 
+	eventModel.insertEvent(user, function(status){
+		if(status){
+			res.redirect('/user/viewEvents');
+		}else{
+			res.redirect('user/createEvent/:id');
+		}
+})
+})
+
+router.get('/myEvent', (req, res)=>{
+	var creatorId = req.cookies['id'];
+    //res.send(data);
+    eventModel.getAllMyEvents(creatorId, function(results){
+		console.log(results);
+        res.render('user/myEvent', {myEventlist : results});
+    });
+});
+
+
+
 router.get('/eventDelete/:id', (req, res)=>{
 	var data = req.params.id;
     //res.send(data);
@@ -108,6 +106,30 @@ router.post('/eventDelete/:id', (req, res)=>{
 		}
 	});
 });
+
+
+
+
+router.get('/eventDelete/:id', (req, res)=>{
+	var data = req.params.id;
+    //res.send(data);
+    eventModel.getById(data, function(results){
+		console.log(results);
+        res.render('user/eventDelete', {deletelist : results});
+    });
+	
+})
+router.post('/eventDelete/:id', (req, res)=>{
+    var data = req.params.id;
+
+	eventModel.deleteEvent(data, function(status){
+		if(status){
+			res.redirect('/user/myEvent');
+		}else{
+			res.redirect('user/eventDelete/:id');
+		}
+})
+})
 router.get('/eventDonate/:id', (req, res)=>{
 	var data = req.params.id;
 
@@ -118,33 +140,14 @@ router.get('/eventDonate/:id', (req, res)=>{
 
 });
 
-router.get('/viewDonation', (req, res)=>{
-	res.render('user/viewDonation');	
-});
 
-router.get('/donateToEvent/:id', (req, res)=>{
-	res.render('user/donateToEvent');	
-});
-
-
-router.get('/reportToEvent/:id', (req, res)=>{
-	res.render('user/reportToEvent');	
-});
-
-router.get('/commentToEvent/:id', (req, res)=>{
-	res.render('user/commentToEvent');	
-});
-
-router.get('/voteToEvent/:id', (req, res)=>{
-	res.render('user/voteToEvent');	
-});
 
 router.post('/createEvent/:id', (req, res)=>{
 	var user = {
 
 		eventName     : 	req.body.eventName,
 		eventPicture  : 	req.body.eventPicture,
-		creatorId     : 	res.cookie,
+		creatorId     : 	req.cookies['id'],
 		description   : 	req.body.description,
 		categoryId    : 	req.body.categoryId,
 		goalAmount    : 	req.body.goalAmount,
@@ -159,7 +162,7 @@ router.post('/createEvent/:id', (req, res)=>{
 		}
 	});
 });
-  
+
 router.post('/reportToEvent/:id', (req, res)=>{
 	var user = {
 		creatorId: 	req.body.creatorId,
@@ -203,7 +206,11 @@ router.post('/donateToEvent/:id', (req, res)=>{
 		}else{
 			res.redirect('user/donateToEvent/:id');
 		}
+
 	});
 });	
 
+
+
 module.exports = router;
+

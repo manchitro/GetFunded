@@ -10,6 +10,7 @@ module.exports ={
 
 	},
 
+
 	insertDonation: function(donation, callback){
 		var sql = "INSERT INTO donations(amount, donorId, eventId, donationMessage, createdAt) VALUES ('"+donation.amount+"','"+donation.donorId+"','"+donation.eventId+"', '"+donation.message+"', current_timestamp())";
 
