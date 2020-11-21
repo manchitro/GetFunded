@@ -17,4 +17,13 @@ router.get('/', (req, res)=>{
 	res.redirect('/login');
 })
 
+router.get('/', (req, res)=>{
+	//console.log(req.session.user);
+	req.session.destroy();
+	// res.clearCookie('uname');
+
+	res.redirect('/login');
+})
+
+
 module.exports = router;
