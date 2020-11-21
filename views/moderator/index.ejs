@@ -8,21 +8,26 @@
         border-collapse: collapse;
         width: 100%;
       }
-      
-      th, td {
+
+      th,
+      td {
         text-align: left;
         padding: 8px;
       }
-      
-      tr:nth-child(even){background-color: #f2f2f2}
-      
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
       th {
-        background-color: #4CAF50;
+        background-color: #4caf50;
         color: white;
         text-align: center;
       }
-      tr:hover {background-color:#ADD8E6;}
-      </style>
+      tr:hover {
+        background-color: #add8e6;
+      }
+    </style>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <title>Moderator Home</title>
   </head>
@@ -33,11 +38,12 @@
     >
       <h5 class="w3-bar-item">Menu</h5>
       <button
-      class="w3-bar-item w3-button tablink"
-      onclick="openTab(event, 'Profile')" id="defaultOpen"
-    >
-      Profile
-    </button>
+        class="w3-bar-item w3-button tablink"
+        onclick="openTab(event, 'Profile')"
+        id="defaultOpen"
+      >
+        Profile
+      </button>
       <button
         class="w3-bar-item w3-button tablink"
         onclick="openTab(event, 'Events')"
@@ -60,14 +66,16 @@
     </div>
     <div style="margin-left: 130px">
       <div class="w3-container tab" id="Events" style="display: none">
-        <h2 style="text-align: center; background-color: #4CAF50; " >Moderator Panel</h2>
-        
-        <h2 style="text-align: center;" >Events</h2>
-        
+        <h2 style="text-align: center; background-color: #4caf50">
+          Moderator Panel
+        </h2>
 
-       
-        <br>
-      
+        <h2 style="text-align: center">Events</h2>
+
+        <a href="/home">Back</a> |
+        <div><a href="/logout">logout</a></div>
+        <br />
+
         <table border="1">
           <tr>
             <th>Id</th>
@@ -80,9 +88,9 @@
             <th>Created At</th>
             <th>Action</th>
           </tr>
-      
+
           <% for(var i=0; i< EventList.length; i++ ){ %>
-            <tr>
+          <tr>
             <td><%= EventList[i].id %></td>
             <td><%= EventList[i].eventName %></td>
             <td><%= EventList[i].creatorId %></td>
@@ -93,38 +101,17 @@
             <td><%= EventList[i].createdAt %></td>
             <td>
               <% if(EventList[i].isApproved==0 ){ %>
-              <a href="/moderator/approve/<%=EventList[i].id%>">Approve</a> 
+              <a href="/moderator/approve/<%=EventList[i].id%>">Approve</a>
               <a href="/moderator/decline/<%=EventList[i].id%>">Decline</a>
               <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
               <% } else { %>
-              
-                
-                <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
-                <% } %>    
+
+              <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
+              <% } %>
             </td>
           </tr>
           <% } %>
         </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
       
       <div class="w3-container tab" id="Profile" style="display: none">
@@ -144,7 +131,6 @@
   </body>
 
   <script>
-    
     function openTab(evt, TabName) {
       var i, x, tablinks;
       x = document.getElementsByClassName("tab");
@@ -157,7 +143,6 @@
       }
       document.getElementById(TabName).style.display = "block";
       evt.currentTarget.className += " w3-green";
-     
     }
     document.getElementById("defaultOpen").click();
   </script>
