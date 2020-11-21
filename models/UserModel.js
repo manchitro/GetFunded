@@ -38,6 +38,12 @@ module.exports ={
 		});
 
 	},
+	getAllByUserType: function(userType, callback){
+		var sql = "select * from users where userType='" + userType + "'";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
 	getAllEvents: function(callback){
 		var sql = "select * from events";
 		db.getResults(sql, function(results){
