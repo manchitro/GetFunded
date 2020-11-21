@@ -10,13 +10,13 @@
       crossorigin="anonymous"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <title>Moderators</title>
+    <title>User Supports</title>
   </head>
   <body>
     <div class="d-flex">
         <%- include('./partials/nav'); -%>
         <div class="main px-4 py-3 w-100" >
-            <h2>Moderators</h2>
+            <h2>User Supports</h2>
             <p class="text-success"><%=successMessage%></p>
             <div class="input-group mb-3 w-25">
                 <input type="text" class="form-control" placeholder="Search table" id="search">
@@ -41,11 +41,11 @@
                                 <td><%- modList[i].email %></td>
                                 <td><%= moment(modList[i].createdAt).format('MMM-DD-YYYY hh:mm A') %></td>
                                 <td>
-                                    <a class="btn btn-outline-dark" href="/admin/moderators/edit/<%=modList[i].id%>" role="button">Edit</a>
+                                    <a class="btn btn-outline-dark" href="/admin/usersupports/edit/<%=modList[i].id%>" role="button">Edit</a>
                                     <a class="btn btn-outline-danger" role="button" onclick="
-                                    if (confirm('Are you sure you want to delete this moderator?')) {
+                                    if (confirm('Are you sure you want to delete this user support?')) {
                                         // Save it!
-                                        window.location.href = '/admin/moderators/delete/<%=modList[i].id%>';
+                                        window.location.href = '/admin/usersupports/delete/<%=modList[i].id%>';
                                         // console.log('Thing was saved to the database.');
                                       } else {
                                         // Do nothing!
@@ -56,7 +56,7 @@
                         <% } %>
                 </tbody>
             </table>
-            <a class="btn btn-outline-dark" href="moderators/add/" role="button">Add Moderator</a>
+            <a class="btn btn-outline-dark" href="usersupports/add/" role="button">Add User Support</a>
         </div>
     </div>
 
