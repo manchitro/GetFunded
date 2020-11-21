@@ -12,7 +12,6 @@ module.exports ={
 				callback(false);
 			}
 		});
-		
 	},
 	getById: function(id, callback){
 		var sql = "select * from users WHERE id="+id;
