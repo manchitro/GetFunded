@@ -1,13 +1,33 @@
 const express = require("express");
 const eventModel = require.main.require("./models/eventModel");
-const userModel = require.main.require("./models/userModel");
+const userModel = require.main.require("./models/UserModel");
 const messagesModel = require.main.require("./models/messagesModel");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  eventModel.getAll(function (results) {
-    res.render("moderator/index", { EventList: results });
-  });
+ 
+  if(req.cookies['uname'] != null){
+      var EventList;
+      var cookieUname;
+      
+
+      userModel.getByUname('asif',function (results) {
+        //res.render("moderator/index", { EventList: results });
+        CUname = results;
+        console.log(CUname);
+        
+        eventModel.getAll(function (results) {
+          el=results;
+           res.render("moderator/index", { EventList: el, uname : CUname  });
+         });
+
+      });
+    
+	}else{
+		res.redirect('/login');
+	}
+
+
 });
 
 router.get("/modify/:id", (req, res) => {
