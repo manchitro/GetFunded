@@ -37,6 +37,16 @@ module.exports ={
 			callback(status);
 		});
 	},
+
+	updateAll: function(event, callback){
+		//var sql = "update events set ('', '"+event.eventName+"' ,'', '"+event.description+"' , '"+event.categoryId+"', '"+event.goalAmount+"', '"+"','','') where id="+event.data;
+		var sql= "UPDATE events SET eventName='"+event.eventName+"', description ='"+event.description +"', categoryId="+event.categoryId +", goalAmount='"+event.goalAmount +"' ,goalDate='"+event.goalDate+"' where id="+event.data;
+		//var sql= "UPDATE events SET isApproved = 1 where id="+user.data;
+		db.execute(sql, function(status){
+			callback(status);
+		});
+	},
+
 	delete: function(id, callback){
 		var sql = "DELETE FROM events WHERE id="+id;
         db.execute(sql, function(status){
