@@ -24,31 +24,33 @@
 <div class="container">    
       <div class="container">
 	  <h2>Create Event Form</h2>
-	  <form action="/action_page.php">
+	  <form method="post">
 	    <div class="form-group">
 	      <label for="eventName">EventName:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="eventName..." name="donate">
+	      <input type="text" class="form-control" id="eventName" placeholder="eventName..." name="eventName">
 	    </div>
 	    <div class="form-group">
 	      <label for="eventName">Description:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="description..." name="donate">
+	      <input type="text" class="form-control" id="description" placeholder="description..." name="description">
 	    </div>
 	    <div class="form-group">
 	      <label for="eventName">CategoryId:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="categoryId..." name="donate">
+	      <input type="text" class="form-control" id="categoryId" placeholder="categoryId..." name="categoryId">
 	    </div>
 	    <div class="form-group">
 	      <label for="eventName">GoalAmount:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="goalAmount..." name="donate">
+	      <input type="text" class="form-control" id="goalAmount" placeholder="goalAmount..." name="goalAmount">
 	    </div>
 	    <div class="form-group">
 	      <label for="eventName">GoalDate:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="goalDate..." name="donate">
+	      <input type="date" class="form-control" id="goalDate" placeholder="goalDate..." name="goalDate">
 	    </div>
+	    <div class="form-group">
+	      <label for="Picture">Picture:</label>
+	      <input type="file" class="picture" id="eventPicture"  name="eventPicture">
+        </div>
+        <input type="submit" name="submit" class="btn btn-dark" value="Confirm">
 
-	    
-	    <input type="hidden" name="donorId" value="<%= %>">
-	    <button type="submit" class="btn btn-primary">Submit</button>
 	  </form>
       </div>
 	</div>

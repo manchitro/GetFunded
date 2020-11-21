@@ -22,8 +22,12 @@ router.post("/", (req, res) => {
   userModel.validate(user, function (gotUser) {
     if (gotUser) {
       res.cookie("uname", req.body.username);
+<<<<<<< HEAD
       req.session.user = gotUser;
+
+=======
       res.cookie("id", gotUser[0].id);
+>>>>>>> fa2f642... My event edit delete
       if (gotUser[0].userType === "admin") {
         res.redirect("/admin");
       } else if (gotUser[0].userType === "user") {

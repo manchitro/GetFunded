@@ -3,13 +3,9 @@ const userModel = require.main.require("./models/userModel");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  if (req.session.user) {
-    res.redirect("/" + req.session.user[0].userType);
-  } else {
-    var successMessage = req.query.success;
+  var successMessage = req.query.success;
 
-    res.render("login/index", { alert: successMessage });
-  }
+  res.render("login/index", { alert: successMessage });
 });
 
 router.post("/", (req, res) => {
@@ -17,12 +13,10 @@ router.post("/", (req, res) => {
     uid: req.body.uid,
     password: req.body.password,
   };
-
   console.log(user);
   userModel.validate(user, function (gotUser) {
     if (gotUser) {
       res.cookie("uname", req.body.username);
-      req.session.user = gotUser;
       res.cookie("id", gotUser[0].id);
       if (gotUser[0].userType === "admin") {
         res.redirect("/admin");

@@ -38,6 +38,7 @@ module.exports ={
 		});
 
 	},
+<<<<<<< HEAD
 	getAllEvents: function(callback){
 		var sql = "select * from events";
 		db.getResults(sql, function(results){
@@ -52,6 +53,9 @@ module.exports ={
 		});
 
 	},
+=======
+	
+>>>>>>> fa2f642... My event edit delete
 	
 	insert: function(user, callback){
 		var sql = "insert into users (name, username, email, password, usertype, createdat) VALUES ('"+user.name+"' , '"+user.username+"' ,  '"+user.email+"' , '"+user.password+"' , '"+user.userType+"', current_timestamp() )";
@@ -62,6 +66,13 @@ module.exports ={
 			callback(status);
 		});
 	},
+<<<<<<< HEAD
+=======
+
+	
+	
+	
+>>>>>>> fa2f642... My event edit delete
 	update: function(user, callback){
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
 		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.username +"', email='"+user.email +"' where id="+user.id;
