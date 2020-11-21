@@ -22,8 +22,15 @@ module.exports ={
         });
 
 	},
-	getAll: function(callback){
-		var sql = "select * from users";
+	getAllEvents: function(callback){
+		var sql = "select * from events";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
+	getAllDonation: function(id, callback){
+		var sql = "select * from donations WHERE eventId="+id;
 		db.getResults(sql, function(results){
 			callback(results);
 		});
@@ -42,7 +49,7 @@ module.exports ={
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
 		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.username +"', email='"+user.email +"' where id="+user.id;
 		//console.log(sql);
-        console.log(sql);
+        //console.log(sql);
 		db.execute(sql, function(status){
 			callback(status);
 		});
