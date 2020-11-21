@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2020 at 06:59 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.6
+-- Generation Time: Nov 20, 2020 at 12:39 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,6 +50,13 @@ CREATE TABLE `donations` (
   `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `donations`
+--
+
+INSERT INTO `donations` (`id`, `amount`, `donorId`, `eventId`, `donationMessage`, `createdAt`) VALUES
+(1, 244, 3, 1, 'someting', '2020-11-03 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -78,8 +85,16 @@ CREATE TABLE `events` (
   `goalAmount` float NOT NULL,
   `goalDate` date NOT NULL,
   `isApproved` tinyint(1) NOT NULL DEFAULT 0,
-  `createdAt` datetime NOT NULL
+  `createdAt` datetime NOT NULL,
+  `eventPicture` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `eventName`, `creatorId`, `description`, `categoryId`, `goalAmount`, `goalDate`, `isApproved`, `createdAt`, `eventPicture`) VALUES
+(1, 'something', 11, 'something', 11, 3101, '2020-11-24', 1, '2020-11-03 00:00:00', 'something.jpg');
 
 -- --------------------------------------------------------
 
@@ -95,15 +110,6 @@ CREATE TABLE `messages` (
   `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `senderId`, `receiverId`, `messageText`, `createdAt`) VALUES
-(1, 1, 2, 'Hello', '2020-11-18 23:48:01'),
-(2, 2, 1, 'Hello again', '2020-11-18 23:48:36'),
-(3, 2, 1, 'ki obostha', '2020-11-18 23:48:59');
-
 -- --------------------------------------------------------
 
 --
@@ -115,7 +121,7 @@ CREATE TABLE `reports` (
   `creatorId` int(11) NOT NULL,
   `eventId` int(11) NOT NULL,
   `message` text NOT NULL,
-  `createdAt` datetime NOT NULL
+  `createdAt` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -130,7 +136,7 @@ CREATE TABLE `users` (
   `userName` text NOT NULL,
   `email` text NOT NULL,
   `password` text NOT NULL,
-  `userType` text NOT NULL,
+  `userType` int(11) NOT NULL,
   `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -139,7 +145,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `userName`, `email`, `password`, `userType`, `createdAt`) VALUES
-(3, 'ewf', '0', 'afwe@gmail.com', 'f7Yrcjf2$DjY', '0', '2020-11-18 13:28:19');
+(3, 'ewf', '0', 'afwe@gmail.com', 'f7Yrcjf2$DjY', 0, '2020-11-18 13:28:19');
 
 -- --------------------------------------------------------
 
@@ -221,7 +227,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `donations`
 --
 ALTER TABLE `donations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `eventcategories`
@@ -233,13 +239,13 @@ ALTER TABLE `eventcategories`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reports`
