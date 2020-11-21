@@ -3,7 +3,22 @@ const userModel = require.main.require("./models/userModel");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("admin/index");
+	if (req.session.user) {
+		console.log(req.session.user[0].userType);
+		if (req.session.user[0].userType === "admin") {
+			res.render("admin/index");
+		}
+		else{
+			res.redirect("/");
+		}
+	}
+	else{
+		res.redirect("/login");
+	}
+});
+
+router.get("/", (req, res) => {
+	
 });
 
 router.get("/login", (req, res) => {
@@ -26,5 +41,7 @@ router.post("/login", (req, res) => {
 		}
 	});
 });
+
+router.post('/logout')
 
 module.exports = router;
