@@ -12,7 +12,6 @@ module.exports ={
 				callback(false);
 			}
 		});
-		
 	},
 	getById: function(id, callback){
 		var sql = "select * from users WHERE id="+id;
@@ -38,7 +37,26 @@ module.exports ={
 		});
 
 	},
-	
+	getAllByUserType: function(userType, callback){
+		var sql = "select * from users where userType='" + userType + "'";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	getAllEvents: function(callback){
+		var sql = "select * from events";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
+	getAllDonation: function(id, callback){
+		var sql = "select * from donations WHERE eventId="+id;
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
 	
 	insert: function(user, callback){
 		var sql = "insert into users (name, username, email, password, usertype, createdat) VALUES ('"+user.name+"' , '"+user.username+"' ,  '"+user.email+"' , '"+user.password+"' , '"+user.userType+"', current_timestamp() )";
@@ -49,10 +67,6 @@ module.exports ={
 			callback(status);
 		});
 	},
-
-	
-	
-	
 	update: function(user, callback){
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
 		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.username +"', email='"+user.email +"' where id="+user.id;

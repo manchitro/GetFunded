@@ -139,7 +139,26 @@ router.get('/voteToEvent/:id', (req, res)=>{
 	res.render('user/voteToEvent');	
 })
 
+router.post('/createEvent/:id', (req, res)=>{
+	var user = {
 
+		eventName     : 	req.body.eventName,
+		eventPicture  : 	req.body.eventPicture,
+		creatorId     : 	res.cookie,
+		description   : 	req.body.description,
+		categoryId    : 	req.body.categoryId,
+		goalAmount    : 	req.body.goalAmount,
+		goalDate      : 	req.body.goalDate,
+		isApproved    : 	req.body.isApproved
+	}; 
+	userModel.insertEvent(user, function(status){
+		if(status){
+			res.redirect('/user/viewEvents');
+		}else{
+			res.redirect('user/createEvent/:id');
+		}
+})
+  
 router.post('/reportToEvent/:id', (req, res)=>{
 	var user = {
 		creatorId: 	req.body.creatorId,

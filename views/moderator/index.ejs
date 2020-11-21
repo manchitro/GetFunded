@@ -28,16 +28,18 @@
         background-color: #add8e6;
       }
     </style>
+  
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <title>Moderator Home</title>
   </head>
   <body>
     <div
       class="w3-sidebar w3-bar-block w3-light-grey w3-card"
-      style="width: 130px"
+      style="width: 230px"
     >
       <h5 class="w3-bar-item">Menu</h5>
-      <button
+      <button 
         class="w3-bar-item w3-button tablink"
         onclick="openTab(event, 'Profile')"
         id="defaultOpen"
@@ -59,24 +61,42 @@
       </button>
       <button
         class="w3-bar-item w3-button tablink"
-        onclick="openTab(event, 'Reports')"
+        onclick="openTab(event, 'Feed')"
       >
-        Reports
+        Feed
       </button>
+
+      <a
+      class="w3-bar-item w3-button tablink"
+     href="/logout"
+    >
+      Logout
+    </a>
     </div>
-    <div style="margin-left: 130px">
+    <div style="margin-left: 230px">
+       
+
       <div class="w3-container tab" id="Events" style="display: none">
-        <h2 style="text-align: center; background-color: #4caf50">
-          Moderator Panel
+        <div>
+          <h2 style=" padding-left: 20px; text-align: center; background-color: #4caf50; padding-right: 20px; ">
+          Get Funded
         </h2>
+      </div>
+       
+        <div style="float: right; padding-top: 15px; "  >
+          <input type="text" id="search" placeholder="Search here">
+         
+        </div>
+       <div style="float: left;" > <h2 style=" padding-left: 20px; text-align: center; background-color: #4caf50; padding-right: 20px; ">
+        Moderator Panel
+      </h2></div>
+        
 
         <h2 style="text-align: center">Events</h2>
 
-        <a href="/home">Back</a> |
-        <div><a href="/logout">logout</a></div>
-        <br />
+        
 
-        <table border="1">
+        <table border="1" id="events_table" >
           <tr>
             <th>Id</th>
             <th>Event Name</th>
@@ -90,38 +110,119 @@
           </tr>
 
           <% for(var i=0; i< EventList.length; i++ ){ %>
-          <tr>
+            
+          <tr id="rows">
             <td><%= EventList[i].id %></td>
             <td><%= EventList[i].eventName %></td>
             <td><%= EventList[i].creatorId %></td>
             <td><%= EventList[i].description %></td>
             <td><%= EventList[i].goalAmount %></td>
-            <td><%= EventList[i].goalDate %></td>
+            <td><%= EventList[i].goalDate.toDateString() %></td>
             <td><%= EventList[i].isApproved %></td>
-            <td><%= EventList[i].createdAt %></td>
+            <td><%= EventList[i].createdAt.toDateString() %></td>
             <td>
               <% if(EventList[i].isApproved==0 ){ %>
-              <a href="/moderator/approve/<%=EventList[i].id%>">Approve</a>
-              <a href="/moderator/decline/<%=EventList[i].id%>">Decline</a>
-              <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
+              <a href="/moderator/approve/<%=EventList[i].id%>"class="w3-bar-item w3-button tablink" >Approve</a>
+              <a href="/moderator/decline/<%=EventList[i].id%>"class="w3-bar-item w3-button tablink">Decline</a>
+              <a href="/moderator/modify/<%=EventList[i].id%>"class="w3-bar-item w3-button tablink">Modify</a>
               <% } else { %>
 
-              <a href="/moderator/modify/<%=EventList[i].id%>">Modify</a>
+              <a href="/moderator/modify/<%=EventList[i].id%> " class="w3-bar-item w3-button tablink">Modify</a>
               <% } %>
             </td>
           </tr>
           <% } %>
         </table>
       </div>
+      
       <div class="w3-container tab" id="Profile" style="display: none">
-        <h2>Moderator Panel</h2>
+        <h2 style="text-align: center; background-color: #4caf50">
+          Moderator Panel
+        </h2>
+
+        <h2 style="text-align: center">Profile</h2>
+        <table style="width: 50%;">
+      <tr> <td> <label>ID :</td> <td><%= userData[0].id  %>  </label> </td></tr>
+       <tr><td> <label>Name :</td><td> <%= userData[0].name  %>  </label> </td></tr>
+      <tr> <td> <label>User Name :</td><td> <%= userData[0].userName  %>  </label> </td></tr>
+       <tr><td> <label>Email :</td><td> <%= userData[0].email  %>  </label> </td></tr>
+        </table>
+
+
+
       </div>
       <div class="w3-container tab" id="Contact" style="display: none">
         <h2>Contact</h2>
       </div>
 
-      <div class="w3-container tab" id="Reports" style="display: none">
-        <h2>Reports</h2>
+      <div class="w3-container tab" id="Feed" style="display: none">
+        <div style="float: right; padding-top: 15px; "  >
+          <input type="text" id="searchFeed" placeholder="Search here">
+         
+        </div>
+       <div style="float: left;" > <h2 style=" padding-left: 20px; text-align: center; background-color: #4caf50; padding-right: 20px; ">
+        Get Funded Feed
+      </h2></div>
+       <br>
+       <br>
+       <br>
+       <br>
+      
+        <form method="post">
+          <% for(var i=0; i< EventList.length; i++ ){ %>
+          <fieldset id="events_table2">
+        <legend  >Event ID -- <%=EventList[i].id %>  </legend>
+        <table  >
+          <tr>
+            <td>Event Name:</td>
+            <td><%=EventList[i].eventName %></td>
+          </tr>
+          <tr>
+            <td id="rows2">Creator Id :</td>
+            <td><%=EventList[i].creatorId %></td>
+          </tr>
+          <tr>
+            <td>Description :</td>
+            <td><%=EventList[i].description%></td>
+                  </tr>
+                  <tr>
+            <td>Category Id :</td>
+            <td><%=EventList[i].categoryId %></td>
+          </tr>
+          <tr>
+            <td>Goal Amount :</td>
+            <td><%=EventList[i].goalAmount %></td>
+          </tr>
+          <tr>
+            <td>Goal Date :</td>
+            <td><%=EventList[i].goalDate.toDateString() %></td>
+                  </tr>
+  
+          
+          <tr>
+            <td>Created At :</td>
+            <td><%=EventList[i].createdAt.toDateString() %></td>
+                  </tr>
+                  
+          
+        </table>
+        <div>
+         
+          <input type="button" name="upvote-<%=EventList[i].id %>" value="Up Vote">
+          <input type="button" name="downvote-<%=EventList[i].id %>" value="Down Vote">
+          <input type="button" name="donate-<%=EventList[i].id %>" value="Donate">
+          <input type="button" name="report-<%=EventList[i].id %>" value="Report">
+        </div>
+          </fieldset>
+          <% } %>
+    </form>
+
+
+
+
+
+
+
       </div>
     </div>
   </body>
@@ -142,4 +243,60 @@
     }
     document.getElementById("defaultOpen").click();
   </script>
+
+<script>  
+  $(document).ready(function(){  
+       $('#search').keyup(function(){  
+            search_table($(this).val());  
+       });  
+       function search_table(value){  
+            $('#events_table #rows').each(function(){  
+                 var found = 'false'; 
+           
+                 $(this).each(function(){  
+                      if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
+                      {  
+                           found = 'true';  
+                      }  
+                 });  
+                 if(found == 'true')  
+                 {  
+                      $(this).show();  
+                 }  
+                 else  
+                 {  
+                      $(this).hide();  
+                 }  
+            });  
+       }  
+  });  
+</script> 
+
+<script>  
+  $(document).ready(function(){  
+       $('#searchFeed').keyup(function(){  
+            search_table($(this).val());  
+       });  
+       function search_table(value){  
+            $('#events_table2').each(function(){  
+                 var found = 'false'; 
+                var x=this;
+                 $(this).each(function(){  
+                      if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
+                      {  
+                           found = 'true';  
+                      }  
+                 });  
+                 if(found == 'true')  
+                 {  
+                      $(x).show();  
+                 }  
+                 else  
+                 {  
+                      $(x).hide();  
+                 }  
+            });  
+       }  
+  });  
+</script> 
 </html>
