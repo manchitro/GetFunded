@@ -1,33 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <title>Login</title>
   </head>
   <body>
-    <form method="post">
-      <fieldset>
-        <legend>Login</legend>
-        <table>
-          <tr>
-            <%= alert %>
-          </tr>
-
-          <tr>
-            <td>Username</td>
-            <td><input type="text" name="username" /></td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td><input type="password" name="password" /></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><input type="submit" name="submit" value="Login" /></td>
-          </tr>
-        </table>
-      </fieldset>
-    </form>
-    <a href="/password-recovery">Forgot Password?</a>
-    <a href="/signup">Create account</a>
+    <div class="navbar navbar-light justify-content-center">
+      <h1>GetFunded</h1>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col col-sm-7 col-lg-5 col-xl-3 mt-5 mb-5" id="login-box">
+        <h2>Login</h2>
+        <br />
+        <p class="text-success"><%= alert %></p>
+        <form method="post" action="/login">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Email / Username"
+            name="uid"
+          /><br />
+          <input
+            class="form-control"
+            type="password"
+            placeholder="Password"
+            name="password"
+          /><br />
+          <button class="btn-lg btn-dark btn-block" type="submit">Login</button
+          ><br />
+        </form>
+        <div class="text-center">
+          <a href="/signup">Create an account!</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

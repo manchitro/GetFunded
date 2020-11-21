@@ -1,55 +1,88 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <title>Signup</title>
   </head>
   <body>
-    <form method="post">
-      <fieldset>
-        <legend>Signup</legend>
-        <table>
-          <tr>
-            <td>Full Name</td>
-            <td><input type="text" name="name" required /></td>
-          </tr>
-          <tr>
-            <td>Username</td>
-            <td><input type="text" name="username" required /></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td><input type="email" name="email" required /></td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td><input type="password" name="password" required /></td>
-          </tr>
-          <tr>
-            <td>Confirm Password</td>
-            <td><input type="password" name="confirmPassword" required /></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <input type="submit" name="submit" value="Create Account" />
-            </td>
-          </tr>
-          <tr>
-            <td><%= alert %></td>
-          </tr>
-        </table>
-      </fieldset>
-    </form>
-    <a href="/password-recovery">Forgot Password?</a>
-    <a href="/signup">Create account</a>
+    <div class="navbar navbar-light justify-content-center">
+      <h1>GetFunded</h1>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col col-sm-7 col-lg-5 col-xl-3 mt-5 mb-5" id="login-box">
+        <h2>Signup</h2>
+        <br />
+        <p class="text-danger"><%= alert %></p>
+        <form method="post" action="/signup">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Full Name"
+            name="name"
+            autocomplete="off"
+          /><br />
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Username"
+            autocomplete="off"
+            name="username"
+          /><br />
+          <input
+            class="form-control"
+            type="email"
+            placeholder="Email"
+            autocomplete="off"
+            name="email"
+          /><br />
+          <input
+            class="form-control"
+            type="password"
+            placeholder="Password"
+            name="password"
+            autocomplete="new-password"
+            id="password"
+          /><br />
+          <input
+            class="form-control"
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            autocomplete="off"
+            id="confirmPassword"
+          /><br />
+          <button class="btn-lg btn-dark btn-block" type="submit">
+            Create Account</button
+          ><br />
+        </form>
+        <div class="text-center">
+          <a href="/login">Already have an account? Log in!</a>
+        </div>
+      </div>
+    </div>
   </body>
+  <!-- Password match check -->
+  <script>
+    var password = document.getElementById("password"),
+      confirm_password = document.getElementById("confirmPassword");
+
+    function validatePassword() {
+      if (password.value != confirmPassword.value) {
+        confirmPassword.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirmPassword.setCustomValidity("");
+      }
+    }
+
+    password.onchange = validatePassword;
+    confirmPassword.onkeyup = validatePassword;
+  </script>
 </html>
 
-<script>
-  $("#loginAlert").hide();
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get("error");
-  if (myParam == "Incorrect_Credential") {
-    $("#loginAlert").show();
-  }
-</script>

@@ -7,7 +7,7 @@ module.exports ={
 		
 	},
 	getById: function(id, callback){
-		var sql = "select * from users WHERE id="+id;
+		var sql = "select * from events WHERE id="+id;
 
         db.getResults(sql, function(results){
             callback(results);
@@ -15,7 +15,7 @@ module.exports ={
 
 	},
 	getAll: function(callback){
-		var sql = "select * from users";
+		var sql = "select * from events";
 		db.getResults(sql, function(results){
 			callback(results);
 		});
@@ -32,15 +32,13 @@ module.exports ={
 	},
 	update: function(user, callback){
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
-		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.username +"', email='"+user.email +"' where id="+user.id;
-		//console.log(sql);
-        console.log(sql);
+		var sql= "UPDATE events SET isApproved = 1 where id="+user.data;
 		db.execute(sql, function(status){
 			callback(status);
 		});
 	},
 	delete: function(id, callback){
-		var sql = "DELETE FROM users WHERE id="+id;
+		var sql = "DELETE FROM events WHERE id="+id;
         db.execute(sql, function(status){
             callback(status);
         });

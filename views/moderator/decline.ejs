@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Decline User</title>
+</head>
+<body>
+	<form method="post">
+		<fieldset>
+			<legend>Decline User</legend>
+			<table>
+				<tr>
+					<td>Event Name:</td>
+					<td><%=decline[0].eventName %></td>
+				</tr>
+				<tr>
+					<td>Creator Id :</td>
+					<td><%=decline[0].creatorId %></td>
+				</tr>
+				<tr>
+					<td>Description :</td>
+					<td><%=decline[0].description%></td>
+                </tr>
+                <tr>
+					<td>Category Id :</td>
+					<td><%=decline[0].categoryId %></td>
+				</tr>
+				<tr>
+					<td>Goal Amount :</td>
+					<td><%=decline[0].goalAmount %></td>
+				</tr>
+				<tr>
+					<td>Goal Date :</td>
+					<td><%=decline[0].goalDate %></td>
+                </tr>
+
+                <tr>
+					<td>Status :</td>
+					<td><%=decline[0].isApproved %></td>
+				</tr>
+				<tr>
+					<td>Created At :</td>
+					<td><%=decline[0].createdAt %></td>
+                </tr>
+                
+				
+			</table>
+			<div>
+                <h3>Your Message :</h3>
+                <input type="text" name="message">
+				<input type="submit" name="submit" value="Decline">
+			</div>
+		</fieldset>
+	</form>
+</body>
+</html>
