@@ -57,7 +57,6 @@ module.exports ={
 		});
 
 	},
-	
 	insert: function(user, callback){
 		var sql = "insert into users (name, username, email, password, usertype, createdat) VALUES ('"+user.name+"' , '"+user.username+"' ,  '"+user.email+"' , '"+user.password+"' , '"+user.userType+"', current_timestamp() )";
 		

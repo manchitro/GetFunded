@@ -23,6 +23,7 @@ router.post("/", (req, res) => {
     if (gotUser) {
       res.cookie("uname", req.body.username);
       req.session.user = gotUser;
+      res.cookie("id", gotUser[0].id);
 
       if (gotUser[0].userType === "admin") {
         res.redirect("/admin");

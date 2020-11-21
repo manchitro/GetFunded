@@ -14,34 +14,30 @@
   <form action="/action_page.php">
     <div class="form-group">
       <label for="eventName">eventName:</label>
-      <input type="text" class="form-control" id="eventName" placeholder="eventName" name="eventName">
+      <input type="text" class="form-control" id="eventName" name="eventName" value="<%=editlist[0].eventName%>">
     </div>
     <div class="form-group">
       <label for="description">description:</label>
-      <input type="text" class="form-control" id="description"  name="description">
+      <input type="text" class="form-control" id="description"  name="description" value="<%=editlist[0].description%>">
     </div>
     <div class="form-group">
       <label for="categoryId">categoryId:</label>
-      <input type="text" class="form-control" id="categoryId"  name="categoryId">
+      <input type="text" class="form-control" id="categoryId"  name="categoryId" value="<%=editlist[0].categoryId%>">
     </div>
     <div class="form-group">
       <label for="goalAmount">goalAmount:</label>
-      <input type="text" class="form-control" id="goalAmount"  name="goalAmount">
+      <input type="text" class="form-control" id="goalAmount"  name="goalAmount" value="<%=editlist[0].goalAmount%>">
     </div>
     <div class="form-group">
       <label for="goalDate">goalDate:</label>
-      <input type="text" class="form-control" id="goalDate"  name="goalDate">
+      <input type="text" class="form-control" id="goalDate"  name="goalDate" value="<%=editlist[0].goalDate%>">
     </div>
     <div class="form-group">
       <label for="Picture">Picture:</label>
       <input type="file" class="picture" id="picture"  name="picture">
     </div>
-    <div class="form-group form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="remember"> Remember me
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a href="user/viewEvents" class="btn btn-success">Back</a>
   </form>
 </div>
 
