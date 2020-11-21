@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
 	if (req.session.user) {
-		console.log(req.session.user[0].userType);
+		// console.log(req.session.user[0].userType);
 		if (req.session.user[0].userType === "admin") {
 			res.render("admin/index");
 		}
