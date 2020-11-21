@@ -22,6 +22,15 @@ module.exports ={
         });
 
 	},
+
+	getByUname: function(Uname, callback){
+		var sql = "select * from users WHERE userName='"+Uname+"'";
+
+        db.getResults(sql, function(results){
+            callback(results);
+        });
+
+	},
 	getAll: function(callback){
 		var sql = "select * from users";
 		db.getResults(sql, function(results){
@@ -29,6 +38,7 @@ module.exports ={
 		});
 
 	},
+	
 	insert: function(user, callback){
 		var sql = "insert into users (name, username, email, password, usertype, createdat) VALUES ('"+user.name+"' , '"+user.username+"' ,  '"+user.email+"' , '"+user.password+"' , '"+user.userType+"', current_timestamp() )";
 		
