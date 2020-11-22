@@ -648,12 +648,12 @@ router.get("/messages/:id", (req, res) => {
             }
             
             var messages = resultLeftMessages.concat(resultRightMessages);
-
+            var selfId = req.session.id;
             var sortedMessages =messages.sort((a,b) => b.createdAt - a.createdAt);
             var reversedSortedMessages = sortedMessages.reverse();
             console.log(messages);
             var gotUser = resultUser[0];
-            res.render("admin/messagesConvo", {user: gotUser, messages: reversedSortedMessages});
+            res.render("admin/messagesConvo", {user: gotUser, messages: reversedSortedMessages, selfId: selfId});
           })
         })
       });
@@ -663,6 +663,23 @@ router.get("/messages/:id", (req, res) => {
   } else {
     res.redirect("/login");
   }
+});
+
+router.post("/messages/send", (req, res) => {
+  var msgText = req.body.msg;
+  var senderId = req.session.user[0].id;
+  var receiverId = req.body.receiverId;
+
+  //console.log(msgText + " " + senderId + " " + receiverId);
+
+  messageModel.insert(senderId, receiverId, msgText, function(status){
+    if(status){
+      res.json({status: 'success'});
+    }
+    else{
+      res.json({status:'error'});
+    }
+  })
 });
 
 module.exports = router;
