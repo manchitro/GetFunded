@@ -17,7 +17,7 @@ module.exports ={
 
 	},
 	getBySenderAndReceiver: function (senderId, receiverId, callback){
-		var sql = "select * from messages";
+		var sql = "select * from messages where senderId='"+senderId+"' and receiverId='"+receiverId+"'";
 		db.getResults(sql, function(results){
 			callback(results);
 		});
