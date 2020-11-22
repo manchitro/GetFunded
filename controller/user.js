@@ -65,7 +65,6 @@ router.get('/eventEdit/:id', (req, res)=>{
 		console.log(results);
         res.render('user/eventEdit', {editlist : results});
     });
-	
 })
 
 router.post('/eventEdit/:id', (req, res)=>{
@@ -88,6 +87,7 @@ router.post('/eventEdit/:id', (req, res)=>{
 })
 })
 
+
 router.get('/eventDelete/:id', (req, res)=>{
 	var data = req.params.id;
     //res.send(data);
@@ -96,6 +96,7 @@ router.get('/eventDelete/:id', (req, res)=>{
         res.render('user/eventDelete', {deletelist : results});
     });
 	
+<<<<<<< HEAD
 })
 router.post('/eventDelete/:id', (req, res)=>{
     var data = req.params.id;
@@ -108,6 +109,7 @@ router.post('/eventDelete/:id', (req, res)=>{
 		}
 })
 })
+
 router.get('/eventDonate/:id', (req, res)=>{
 	var data = req.params.id;
 
@@ -159,9 +161,7 @@ router.post('/createEvent/:id', (req, res)=>{
 			res.redirect('user/createEvent/:id');
 		}
 })
-})
-
-
+  
 router.post('/reportToEvent/:id', (req, res)=>{
 	var user = {
 		creatorId: 	req.body.creatorId,

@@ -22,6 +22,7 @@ router.post("/", (req, res) => {
   userModel.validate(user, function (gotUser) {
     if (gotUser) {
       res.cookie("uname", req.body.username);
+      res.cookie("id", gotUser[0].id);
       req.session.user = gotUser;
       res.cookie("id", gotUser[0].id);
       if (gotUser[0].userType === "admin") {

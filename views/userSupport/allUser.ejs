@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<title>View Events</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">GetFunded</h3>
+  <a href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
+  <a href="/userSupport/viewEvents" class="w3-bar-item w3-button">Events</a>
+  <a href="/userSupport/eventDonation" class="w3-bar-item w3-button">Donation</a>
+  <a href="/logout" class="w3-bar-item w3-button">logout</a>
+</div>
+
+<div style="margin-left:15%">
+
+<div class="w3-container w3-light-grey">
+<nav class="navbar navbar-light bg-light justify-content-between">
+	  <a class="navbar-brand" href="/userSupport/viewEvents">Events</a>
+	  <form class="form-inline">
+	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	  </form>
+	</nav>  
+</div>
+
+
+
+<div class="w3-container">
+<div class="container">    
+	  <table class="table table-hover">
+	      <tr>
+	        <th>id</th>
+	        <th>eventName</th>
+	        <th>eventPicture</th>
+	        <th>description</th>
+	        <th>goalAmount</th>
+	        <th>goalDate</th>
+	        <th>Action</th>
+	      </tr>
+	    
+
+		  <% for(var i=0; i< eventlist.length; i++ ){ %>
+		  <tr>
+		  	<td><%= eventlist[i].id %></td>
+		  	<td><%= eventlist[i].eventName %></td>
+		  	<td><%= eventlist[i].eventPicture %></td>
+		  	<td><%= eventlist[i].description %></td>
+		  	<td><%= eventlist[i].goalAmount %></td>
+		  	<td><%= eventlist[i].goalDate %></td>
+		  	<td>
+		  		<a href="/user/eventMore/<%=eventlist[i].id%>">More</a>  
+		  	</td>
+		  </tr>
+		  <% } %>
+
+	  </table>
+	</div>
+</div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
