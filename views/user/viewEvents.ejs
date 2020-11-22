@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/abc/css/user.css">
+
 <body>
 
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
@@ -12,7 +14,7 @@
   <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
   <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
-  <a href="/user/logout" class="w3-bar-item w3-button">logout</a>
+   <a href="/logout" class="w3-bar-item w3-button">logout</a>
 </div>
 
 <div style="margin-left:15%">
@@ -36,6 +38,7 @@
 	        <th>eventName</th>
 	        <th>eventPicture</th>
 	        <th>description</th>
+	        <th>categoryId</th>
 	        <th>goalAmount</th>
 	        <th>goalDate</th>
 	        <th>Action</th>
@@ -48,10 +51,14 @@
 		  	<td><%= eventlist[i].eventName %></td>
 		  	<td><%= eventlist[i].eventPicture %></td>
 		  	<td><%= eventlist[i].description %></td>
+		  	<td><%= eventlist[i].categoryId %></td>
 		  	<td><%= eventlist[i].goalAmount %></td>
-		  	<td><%= eventlist[i].goalDate %></td>
+		  	<td><%= eventlist[i].goalDate%></td>
 		  	<td>
-		  		<a href="/user/eventMore/<%=eventlist[i].id%>">More</a>  
+		  		<a href="/user/donateToEvent/<%=eventlist[i].id%>">Donate</a> |
+		  		<a href="/user/reportToEvent/<%=eventlist[i].id%>">Report</a> |
+		  		<a href="/user/voteToEvent/<%=eventlist[i].id%>">Vote</a> |
+		  		<a href="/user/commentToEvent/<%=eventlist[i].id%>">Comment</a> |
 		  	</td>
 		  </tr>
 		  <% } %>

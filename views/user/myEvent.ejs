@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/abc/css/user.css">
+
 <body>
 
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
@@ -12,6 +14,8 @@
   <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
   <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
+   <a href="/logout" class="w3-bar-item w3-button">logout</a>
+
 </div>
 
 <div style="margin-left:15%">
@@ -48,7 +52,7 @@
 		  	<td><%= myEventlist[i].eventPicture %></td>
 		  	<td><%= myEventlist[i].description %></td>
 		  	<td><%= myEventlist[i].goalAmount %></td>
-		  	<td><%= myEventlist[i].goalDate %></td>
+		  	<td><%= myEventlist[i].goalDate.toDateString() %></td>
 		  	<td>
 		  		<a class="btn btn-primary" href="/user/eventEdit/<%=myEventlist[i].id%>">Edit</a> 
 		  		<a class="btn btn-dark" href="/user/eventDelete/<%=myEventlist[i].id%>">Delete</a>  

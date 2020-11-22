@@ -2,9 +2,9 @@ const db = require('./db');
 module.exports ={
 
 insertComment: function(user, callback){
-		var sql = "INSERT INTO `comments`(`id`, `commenterId`, `eventId`, `commentText`, `createdAt`) VALUES ('','"+user.commenterId+"' , '"+user.eventId+"' ,  '"+user.commentText+"', current_timestamp())";
+		var sql = "INSERT INTO `comments` VALUES ('','"+user.commenterId+"' , '"+user.eventId+"' ,  '"+user.commentText+"', current_timestamp())";
 
-		//console.log(sql);
+		console.log(sql);
 
 		db.execute(sql, function(status){
 			callback(status);

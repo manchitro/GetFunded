@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-<title>Donate Report</title>
+<title>Event More</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/abc/css/user.css">
+
 <body>
 
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
@@ -12,6 +14,7 @@
   <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
   <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
+   <a href="/logout" class="w3-bar-item w3-button">logout</a>
 </div>
 
 <div style="margin-left:15%">
@@ -22,23 +25,40 @@
 
 <div class="w3-container">
 <div class="container">    
-      <div class="container">
-	  <h2>Donate Form</h2>
-	  <form action="/action_page.php">
-	    <div class="form-group">
-	      <label for="eventName">amount:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="donate..." name="donate">
-	    </div>
-	    <div class="form-group">
-	      <label for="eventName">donationMessage:</label>
-	      <input type="text" class="form-control" id="donate" placeholder="donate..." name="donate">
-	    </div>
+	  <form method="post">
+	  <table class="table table-hover">
+	    <tr>
+	      <th>id</th>
+	      <th>amount</th>
+	      <th>donorId</th>
+	      <th>donationMessage</th>
+	      <th>createdAt</th>
+	    </tr>
 
-	    
-	    <input type="hidden" name="donorId" value="<%= %>">
-	    <button type="submit" class="btn btn-primary">Submit</button>
+		<% for(var i=0; i< donatelist.length; i++ ){ 
+		 %>
+		<tr>
+			<td><%= donatelist[i].id %></td>
+			<td><%= donatelist[i].amount %></td>
+			<td><%= donatelist[i].donorId %></td>
+			<td><%= donatelist[i].donationMessage %></td>
+			<td><%= donatelist[i].createdAt.toDateString()%></td>
+		</tr>
+		<% } %>
+	  	<tr>
+	  		<td colspan="2">
+	  			<input class="form-control mr-sm-2" name="amount" type="text" placeholder="Amount..." aria-label="Search">
+	  		</td>
+	  		<td colspan="2">
+	  			<input class="form-control mr-sm-2" name="donationMessage" type="text" placeholder="Message..." aria-label="Search">
+	  		</td>
+	  		<td>
+	  			<input type="submit" class="btn btn-primary" name="submit" value="Confirm">
+	  		</td>
+	  	</tr>
+	  	
+	  </table>
 	  </form>
-      </div>
 	</div>
 </div>
 
