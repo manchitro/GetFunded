@@ -682,4 +682,17 @@ router.post("/messages/send", (req, res) => {
   })
 });
 
+router.get("/reports", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "admin") {
+      res.render("admin/reports");
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
 module.exports = router;
