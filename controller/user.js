@@ -158,7 +158,7 @@ router.post('/createEvent/:id', (req, res)=>{
 			res.redirect('user/createEvent/:id');
 		}
 })
-  
+})  
 router.post('/reportToEvent/:id', (req, res)=>{
 	var user = {
 		creatorId: 	req.body.creatorId,
@@ -207,7 +207,3 @@ router.post('/donateToEvent/:id', (req, res)=>{
 
 
 module.exports = router;
-
-
-//validation -> express-validator (https://www.npmjs.com/package/express-validator)
-//file upload -> express-fileupload (https://www.npmjs.com/package/express-fileupload)
