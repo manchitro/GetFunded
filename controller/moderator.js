@@ -2,6 +2,7 @@ const express = require("express");
 const eventModel = require.main.require("./models/eventModel");
 const userModel = require.main.require("./models/UserModel");
 const messagesModel = require.main.require("./models/messagesModel");
+const donationModel = require.main.require("./models/donationModel");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -101,10 +102,11 @@ router.post("/approve/:id", (req, res) => {
   };
   eventModel.update(user, function (status) {
     if (status) {
-      eventModel.getAll(function (results) {
-        // res.render('moderator/index', { EventList : results});
-        res.redirect("/moderator");
-      });
+      res.redirect("/moderator");
+      // eventModel.getAll(function (results) {
+      //   // res.render('moderator/index', { EventList : results});
+      //   res.redirect("/moderator");
+      // });
     } else {
       res.redirect(user.data);
     }
@@ -187,6 +189,23 @@ router.get("/feed", (req, res) => {
 //console.log(results);
     if(results){
       var r =results;
+      
+     // res.json({status: 'success'},{results : results } );
+      res.status(200).json(results);
+    }
+    else{
+      res.json({status:'error'});
+    }
+  });
+});
+
+router.get("/excelsheet", (req, res) => {
+  //var data = req.params.id;
+  console.log("clicckkkeeeeed--excel");
+  donationModel.getReport(function (results) {
+//console.log(results);
+    if(results){
+     console.log(results);
       
      // res.json({status: 'success'},{results : results } );
       res.status(200).json(results);
