@@ -34,5 +34,13 @@ module.exports ={
 		db.getResults(sql, function(results){
 			callback(results);
 		});
+	},
+
+	getAllDonationSumGroupedByEvent(callback){
+		sql = "select sum(ifnull(d.amount,0)) as sumAmount from donations d RIGHT JOIN events e on e.id=d.eventId GROUP by d.eventid order by e.id";
+
+		db.getResults(sql, function(results){
+			callback(results);
+		});
 	}
 }
