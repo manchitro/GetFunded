@@ -21,12 +21,12 @@ module.exports ={
 		db.getResults(sql, function(results){
 			callback(results);
 		});
-
 	},
+
 	insert: function(senderId, receiverId, message, callback){
 		var sql = "insert into messages (senderId, receiverId, messageText, createdAt) VALUES ('"+senderId+"' , '"+receiverId+"' , '"+message+"', current_timestamp() )";
 		
-		//console.log(sql);
+		console.log("Sql--",sql);
 
 		db.execute(sql, function(status){
 			callback(status);
@@ -44,6 +44,5 @@ module.exports ={
         db.execute(sql, function(status){
             callback(status);
         });
-
 	}
 }

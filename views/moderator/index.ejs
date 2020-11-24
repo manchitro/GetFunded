@@ -27,6 +27,72 @@
       tr:hover {
         background-color: #add8e6;
       }
+
+      .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.button3 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.button3:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.button4 {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.button4:hover {background-color: #e7e7e7;}
+
+.button5 {
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+}
+
+.button5:hover {
+  background-color: #555555;
+  color: white;
+}
     </style>
   
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  
@@ -60,11 +126,17 @@
         Contact
       </button>
       <button
-        class="w3-bar-item w3-button tablink"
+        class="w3-bar-item w3-button tablink" id="gFeedaj"
         onclick="openTab(event, 'Feed')"
       >
         Feed
       </button>
+      <button
+      class="w3-bar-item w3-button tablink" id="loadreport"
+      onclick="openTab(event, 'report')"
+    >
+      Reports
+    </button>
 
       <a
       class="w3-bar-item w3-button tablink"
@@ -133,6 +205,9 @@
           </tr>
           <% } %>
         </table>
+        <a id="dlink"  style="display:none;"></a>
+
+      <input type="button" onclick="tableToExcel('events_table', 'Events', 'EventTable.xls')" value="Export to Excel" class="button button1">
       </div>
       
       <div class="w3-container tab" id="Profile" style="display: none">
@@ -148,31 +223,79 @@
        <tr><td> <label>Email :</td><td> <%= userData[0].email  %>  </label> </td></tr>
         </table>
 
+        <h4>Notifications :</h4> 
+        <p style="color: #4CAF50;" ><%= success  %> </p>
+
 
 
       </div>
       <div class="w3-container tab" id="Contact" style="display: none">
-        <h2>Contact</h2>
+        <h2 style="text-align: center; background-color: #4caf50">Contact</h2>
+        <br>
+        <form action="">
+          <input type="text" name="rid" placeholder="Load Chats by Reciever ID"  id="ridtext" required >
+          <input type="submit" value="Load Chats" id="loadinbox" class="button button1">
+  
+         </form>
+        <fieldset style="width: 40%;">
+          <legend> Inbox </legend>
+          <fieldset id="msgdiv" >
+             
+
+         </fieldset>
+
+       </fieldset>
+       
+        <br>
+        <br>
+        <br>
+        
+        
+       
+
+
+
+
       </div>
+
+
+      <div class="w3-container tab" id="report" style="display: none">
+        <h2 style="text-align: center; background-color: #4caf50">Reports</h2>
+        <br>
+
+      
+
+       <table id="excelTable">
+
+       </table>
+       <a id="dlink2"  style="display:none;"></a>
+
+       <input type="button" onclick="tableToExcel2('excelTable', 'Reports', 'Reports.xls')" value="Download Report" class="button button1">
+       </div>
+      </div>
+
 
       <div class="w3-container tab" id="Feed" style="display: none">
         <div style="float: right; padding-top: 15px; "  >
           <input type="text" id="searchFeed" placeholder="Search here">
          
         </div>
-       <div style="float: left;" > <h2 style=" padding-left: 20px; text-align: center; background-color: #4caf50; padding-right: 20px; ">
+        
+       <div style="float: left;"> <h2 style=" padding-left: 230px; text-align: center; background-color: #4caf50; padding-right: 20px; ">
         Get Funded Feed
-      </h2></div>
+      </h2>
+    
+    </div>
        <br>
        <br>
        <br>
        <br>
       
-        <form method="post">
+        <!-- <form method="post">
           <% for(var i=0; i< EventList.length; i++ ){ %>
           <fieldset id="events_table2">
         <legend  >Event ID -- <%=EventList[i].id %>  </legend>
-        <table  >
+        <table>
           <tr>
             <td>Event Name:</td>
             <td><%=EventList[i].eventName %></td>
@@ -215,9 +338,19 @@
         </div>
           </fieldset>
           <% } %>
-    </form>
+    </form> -->
+   <!-- <input type="button" value="Click" id="ajaxB" > -->
 
+     <div id="getfeed" style="margin-left: 230px;" >
+     
+      <table class="getfeeds" id="gf" > 
+        
+     
+      
 
+      </table>
+     
+     </div>
 
 
 
@@ -225,7 +358,144 @@
 
       </div>
     </div>
+    
   </body>
+  <script>
+$( document ).ready(function() {
+	
+	// GET REQUEST
+	$("#gFeedaj").click(function(event){
+        event.preventDefault();
+        console.log("Clicked");
+		ajaxGet();
+  });
+  $("#loadreport").click(function(event){
+        event.preventDefault();
+        console.log("Clicked");
+		ajaxGet3();
+  });
+
+
+  $("#loadinbox").click(function(event){
+      var receiverId = $("#ridtext").val();
+      event.preventDefault();
+          console.log("Clicked");
+      if(receiverId){ajaxGet2(receiverId);} else{ alert("Fill The Box Please"); }
+    });
+	
+	// DO GET
+	function ajaxGet3(){
+   
+  
+    $.ajax({
+			      type : "GET",
+            url : "/moderator/excelsheet",
+            datatype : 'json',
+            
+			success: function(result){
+				$('#excelTable').empty();
+        var custList = "";
+        console.log("Ajjjjjjjjjjjaxxxxxxxx");
+       
+				$.each(result, function(i, result){
+					$('#excelTable').append(
+          
+          " <tr> <th>Event ID</th> <th>Total Donations </th></tr> <tr> <td style='text-align: center' >"+
+          result.eventId+"</td><td style='text-align: center'>" + result.sumfund + "</td> </tr>"
+          
+          
+          )
+				});
+				console.log("Success: ", result);
+			},
+			error : function(e) {
+				$("#excelTable").html("<strong>Error</strong>");
+				console.log("ERROR: ", e);
+			}
+		});	
+  }
+
+  function ajaxGet(){
+   
+  
+   $.ajax({
+           type : "GET",
+           url : "/moderator/feed",
+           datatype : 'json',
+           
+     success: function(result){
+       $('#getfeed table').empty();
+       var custList = "";
+       console.log("Ajjjjjjjjjjjaxxxxxxxx");
+      
+       $.each(result, function(i, result){
+         $('#getfeed .getfeeds').append(
+           
+         " <tr> <th>Event Name</th> <th>ID</th><th>Creator ID</th><th>Description</th><th>Category ID</th> <th>Goal Amount</th><th>Goal Date</th><th>Created At</th><th>Action</th> </tr> <tr> <td>"+
+         result.eventName+"</td>" + " <td>" + result.id + "</td>"+ " <td>" + result.creatorId + "</td>" + " <td>" + result.description + "</td>" + " <td>" + result.categoryId + "</td>" +" <td>" + result.goalAmount + "</td>" +" <td>" + result.goalDate + "</td>" +" <td>" + result.createdAt + "</td> <td><a href='/moderator/donate/"+result.id+"'class='w3-bar-item w3-button tablink' >Donate</a> </td> </tr> <br> <br> "
+         
+         
+         
+         )
+       });
+       console.log("Success: ", result);
+     },
+     error : function(e) {
+       $("#getfeed").html("<strong>Error</strong>");
+       console.log("ERROR: ", e);
+     }
+   });	
+ }
+  
+      // DO GET
+      function ajaxGet2(receiverId){
+      console.log("----------------");
+    
+      $.ajax({
+              type : "GET",
+              url : "/moderator/msg/"+receiverId,
+              datatype : 'json',
+              
+        success: function(result){
+          $('#msgdiv').empty();
+          var custList = "";
+          console.log("Ajjjjjjjjjjjaxxxxxxxx");
+         
+          $.each(result, function(i, result){
+            $('#msgdiv').append(
+             "<div style='"+result.side+"'  > "+result.messageText+" </div> <br>"
+            
+            )
+          });
+          console.log("Success: ", result);
+        },
+        error : function(e) {
+          $("#getfeed").html("<strong>Error</strong>");
+          console.log("ERROR: ", e);
+        }
+      });	
+    }
+
+
+  
+})
+
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <script>
     function openTab(evt, TabName) {
@@ -278,7 +548,7 @@
             search_table($(this).val());  
        });  
        function search_table(value){  
-            $('#events_table2').each(function(){  
+            $('#gf tr').each(function(){  
                  var found = 'false'; 
                 var x=this;
                  $(this).each(function(){  
@@ -292,11 +562,49 @@
                       $(x).show();  
                  }  
                  else  
-                 {  
+                 {   
                       $(x).hide();  
                  }  
             });  
        }  
   });  
-</script> 
+</script>
+
+<script>
+var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name, filename) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+            document.getElementById("dlink").href = uri + base64(format(template, ctx));
+            document.getElementById("dlink").download = filename;
+            document.getElementById("dlink").click();
+
+        }
+    })()
+
+
+    var tableToExcel2 = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name, filename) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+            document.getElementById("dlink2").href = uri + base64(format(template, ctx));
+            document.getElementById("dlink2").download = filename;
+            document.getElementById("dlink2").click();
+
+        }
+    })()
+
+</script>
+
+
 </html>

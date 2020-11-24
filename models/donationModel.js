@@ -9,9 +9,18 @@ module.exports ={
 		});
 
 	},
+	getReport: function(callback){
+		var sql = "SELECT eventId, SUM(amount) AS sumfund FROM donations GROUP BY eventId";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
+
 
 	insertDonation: function(donation, callback){
 		var sql = "INSERT INTO donations(amount, donorId, eventId, donationMessage, createdAt) VALUES ('"+donation.amount+"','"+donation.donorId+"','"+donation.eventId+"', '"+donation.message+"', current_timestamp())";
+
 
 		//console.log(sql);
 
