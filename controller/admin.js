@@ -2,6 +2,7 @@ const express = require("express");
 const userModel = require.main.require("./models/userModel");
 const eventModel = require.main.require("./models/eventModel");
 const messageModel = require.main.require("./models/messagesModel");
+const donationModel = require.main.require("./models/donationModel")
 const router = express.Router();
 const moment = require("moment");
 
@@ -498,11 +499,41 @@ router.get("/events", (req, res) => {
   }
 });
 
+router.get("/events/:id", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "admin") {
+      eventModel.getById(req.params.id, function (eventResult) {
+        //console.log(result[0]);
+        userModel.getById(eventResult[0].creatorId, function (creatorResult){
+          //console.log(creatorResult[0]);
+          donationModel.getDonationSumByEventId(eventResult[0].id, function (donationSumResult){
+            console.log(donationSumResult);
+            res.render("admin/eventView", {
+              errorMessage: req.query.error,
+              successMessage: req.query.success,
+              event: eventResult[0],
+              creator: creatorResult[0],
+              donationSum: donationSumResult[0].sumAmount,
+              moment: moment,
+            });
+          });
+        });
+      });
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
 router.get("/events/approve/:id", (req, res) => {
   if (req.session.user) {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
       eventId = req.params.id;
+      console.log(req.query.return);
       eventModel.approve(eventId, function (status) {
         if (status) {
           res.redirect(
@@ -527,15 +558,30 @@ router.get("/events/decline/:id", (req, res) => {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
       eventId = req.params.id;
+      console.log(req.query.return);
       eventModel.decline(eventId, function (status) {
         if (status) {
-          res.redirect(
-            "/admin/events?success=" + encodeURIComponent("Event declined!")
-          );
+          if(!req.query.return){
+            res.redirect(
+              "/admin/events?success=" + encodeURIComponent("Event declined!")
+            );
+          }
+          else{
+            res.redirect(
+              "/admin/events/"+eventId+"?success=" + encodeURIComponent("Event declined!")
+            );
+          }
         } else {
-          res.redirect(
-            "/admin/events?error=" + encodeURIComponent("SQL Error!")
-          );
+          if(!req.query.return){
+            res.redirect(
+              "/admin/events?error=" + encodeURIComponent("SQL Error!")
+            );
+          }
+          else{
+            res.redirect(
+              "/admin/events/"+eventId+"?error=" + encodeURIComponent("SQL Error!")
+            );
+          }
         }
       });
     } else {

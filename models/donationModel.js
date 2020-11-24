@@ -11,12 +11,20 @@ module.exports ={
 	},
 
 	insertDonate: function(user, callback){
-			var sql = "INSERT INTO `donations`(`id`, `amount`, `donorId`, `eventId`, `donationMessage`, `createdAt`) VALUES ('','"+user.amount+"' , '"+user.donorId+"' , '"+user.eventId+"' ,  '"+user.donationMessage+"', current_timestamp())";
+		var sql = "INSERT INTO `donations`(`id`, `amount`, `donorId`, `eventId`, `donationMessage`, `createdAt`) VALUES ('','"+user.amount+"' , '"+user.donorId+"' , '"+user.eventId+"' ,  '"+user.donationMessage+"', current_timestamp())";
 
-			//console.log(sql);
+		//console.log(sql);
 
-			db.execute(sql, function(status){
-				callback(status);
-			});
-		}
+		db.execute(sql, function(status){
+			callback(status);
+		});
+	},
+
+	getDonationSumByEventId: function(eventId, callback){
+		sql="SELECT sum(amount) as sumAmount FROM donations WHERE eventId="+eventId;
+
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	}
 }

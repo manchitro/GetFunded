@@ -43,7 +43,7 @@
                         <% for (i in eventList){ %>
                             <tr id="data-row">
                                 <td><%- eventList[i].id %></td>
-                                <td><%- eventList[i].eventName %></td>
+                                <td><a href="/admin/events/<%- eventList[i].id %>"><%- eventList[i].eventName %></a></td>
                                 <td><%- eventList[i].creatorId %></td>
                                 <td><%- eventList[i].description %></td>
                                 <td><%- eventList[i].categoryId %></td>

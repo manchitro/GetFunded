@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Edit Event</title>
+  </head>
+  <body>
+    <div class="d-flex">
+      <%- include('./partials/nav'); -%>
+      <div class="main px-4 py-3 w-100">
+        <h2><%- event.eventName %></h2>
+        <p class="text-success"><%=successMessage %></p>
+        <p class="text-danger"><%=errorMessage %></p>
+        <div class="mb-3">
+          <h4>Description: <%- event.description %></h4>
+          <p class="m-0">Goal Amount: <%- event.goalAmount %></p>
+          <p class="m-0">Goal Date: <%- moment(event.goalDate).format('MMM-DD-YYYY') %></p>
+          <p class="m-0">Amount collected: <%- donationSum %></p>
+          <h5 class="mb-2"><%- (event.isApproved ? "Approved" : "Not approved") %></h5>
+          <a class="btn btn-outline-dark" role="button" onclick="
+            if (confirm('Are you sure you want to approve this event?')) {
+                // Save it!
+                window.location.href = '/admin/events/approve/<%=event.id%>?return=eventView';
+                // console.log('Thing was saved to the database.');
+              } else {
+                // Do nothing!
+                // console.log('Thing was not saved to the database.');
+              }">Approve</a>
+          <a class="btn btn-outline-dark" role="button" onclick="
+            if (confirm('Are you sure you want to decline this event?')) {
+                // Save it!
+                window.location.href = '/admin/events/decline/<%=event.id%>?return=eventView';
+                // console.log('Thing was saved to the database.');
+              } else {
+                // Do nothing!
+                // console.log('Thing was not saved to the database.');
+              }">Decline</a>
+        </div>
+        <h4>Created by: <%- creator.userName%></h4>
+        <a class="btn btn-outline-dark" href="/admin/messages/<%=creator.id%>" role="button">Send Message</a>
+      </div>
+    </div>
+  </body>
+</html>
