@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const exSession = require("express-session");
 const cookieParser = require("cookie-parser");
+const expressValidator = require("express-validator");
 const login = require("./controller/login");
 const signup = require("./controller/signup");
 const logout = require("./controller/logout");
@@ -10,7 +11,6 @@ const user = require("./controller/user");
 const admin = require("./controller/admin");
 const moderator = require("./controller/moderator");
 const userSupport = require("./controller/userSupport");
-const expressValidator = require("express-validator");
 const app = express();
 
 //config

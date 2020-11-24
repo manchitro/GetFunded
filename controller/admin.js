@@ -1,8 +1,9 @@
 const express = require("express");
+const Excel = require("exceljs");
 const userModel = require.main.require("./models/userModel");
 const eventModel = require.main.require("./models/eventModel");
 const messageModel = require.main.require("./models/messagesModel");
-const donationModel = require.main.require("./models/donationModel")
+const donationModel = require.main.require("./models/donationModel");
 const router = express.Router();
 const moment = require("moment");
 
@@ -505,23 +506,29 @@ router.get("/events/:id", (req, res) => {
     if (req.session.user[0].userType === "admin") {
       eventModel.getById(req.params.id, function (eventResult) {
         //console.log(result[0]);
-        userModel.getById(eventResult[0].creatorId, function (creatorResult){
+        userModel.getById(eventResult[0].creatorId, function (creatorResult) {
           //console.log(creatorResult[0]);
-          donationModel.getDonationSumByEventId(eventResult[0].id, function (donationSumResult){
-            //console.log(donationSumResult);
-            donationModel.getAllDonationByEventId(eventResult[0].id, function (donationsResult){
-              //console.log(donationsResult);
-              res.render("admin/eventView", {
-                errorMessage: req.query.error,
-                successMessage: req.query.success,
-                event: eventResult[0],
-                creator: creatorResult[0],
-                donationSum: donationSumResult[0].sumAmount,
-                donations: donationsResult,
-                moment: moment,
-              });
-            });
-          });
+          donationModel.getDonationSumByEventId(
+            eventResult[0].id,
+            function (donationSumResult) {
+              //console.log(donationSumResult);
+              donationModel.getAllDonationByEventId(
+                eventResult[0].id,
+                function (donationsResult) {
+                  //console.log(donationsResult);
+                  res.render("admin/eventView", {
+                    errorMessage: req.query.error,
+                    successMessage: req.query.success,
+                    event: eventResult[0],
+                    creator: creatorResult[0],
+                    donationSum: donationSumResult[0].sumAmount,
+                    donations: donationsResult,
+                    moment: moment,
+                  });
+                }
+              );
+            }
+          );
         });
       });
     } else {
@@ -540,25 +547,29 @@ router.get("/events/approve/:id", (req, res) => {
       console.log(req.query.return);
       eventModel.approve(eventId, function (status) {
         if (status) {
-          if(!req.query.return){
+          if (!req.query.return) {
             res.redirect(
               "/admin/events?success=" + encodeURIComponent("Event approved!")
             );
-          }
-          else{
+          } else {
             res.redirect(
-              "/admin/events/"+eventId+"?success=" + encodeURIComponent("Event approved!")
+              "/admin/events/" +
+                eventId +
+                "?success=" +
+                encodeURIComponent("Event approved!")
             );
           }
         } else {
-          if(!req.query.return){
+          if (!req.query.return) {
             res.redirect(
               "/admin/events?error=" + encodeURIComponent("SQL Error!")
             );
-          }
-          else{
+          } else {
             res.redirect(
-              "/admin/events/"+eventId+"?error=" + encodeURIComponent("SQL Error!")
+              "/admin/events/" +
+                eventId +
+                "?error=" +
+                encodeURIComponent("SQL Error!")
             );
           }
         }
@@ -579,25 +590,29 @@ router.get("/events/decline/:id", (req, res) => {
       console.log(req.query.return);
       eventModel.decline(eventId, function (status) {
         if (status) {
-          if(!req.query.return){
+          if (!req.query.return) {
             res.redirect(
               "/admin/events?success=" + encodeURIComponent("Event declined!")
             );
-          }
-          else{
+          } else {
             res.redirect(
-              "/admin/events/"+eventId+"?success=" + encodeURIComponent("Event declined!")
+              "/admin/events/" +
+                eventId +
+                "?success=" +
+                encodeURIComponent("Event declined!")
             );
           }
         } else {
-          if(!req.query.return){
+          if (!req.query.return) {
             res.redirect(
               "/admin/events?error=" + encodeURIComponent("SQL Error!")
             );
-          }
-          else{
+          } else {
             res.redirect(
-              "/admin/events/"+eventId+"?error=" + encodeURIComponent("SQL Error!")
+              "/admin/events/" +
+                eventId +
+                "?error=" +
+                encodeURIComponent("SQL Error!")
             );
           }
         }
@@ -688,8 +703,8 @@ router.get("/donate/:id", (req, res) => {
   if (req.session.user) {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
-      eventModel.getById(req.params.id, function(result){
-        res.render("admin/donate", {event: result[0]});
+      eventModel.getById(req.params.id, function (result) {
+        res.render("admin/donate", { event: result[0] });
       });
     } else {
       res.redirect("/");
@@ -707,15 +722,24 @@ router.post("/donate", (req, res) => {
         amount: req.body.amount,
         donorId: req.session.user[0].id,
         eventId: req.body.eventId,
-        message: req.body.message
+        message: req.body.message,
       };
       console.log(donation);
-      donationModel.insertDonation(donation, function(status){
+      donationModel.insertDonation(donation, function (status) {
         if (status) {
-          res.redirect('/admin/events/' + req.body.eventId + "?success=" + encodeURIComponent("Donation received!"));
-        }
-        else{
-          res.redirect('/admin/events/' + req.body.eventId + "?error=" + encodeURIComponent("SQL Error!"));
+          res.redirect(
+            "/admin/events/" +
+              req.body.eventId +
+              "?success=" +
+              encodeURIComponent("Donation received!")
+          );
+        } else {
+          res.redirect(
+            "/admin/events/" +
+              req.body.eventId +
+              "?error=" +
+              encodeURIComponent("SQL Error!")
+          );
         }
       });
     } else {
@@ -743,25 +767,39 @@ router.get("/messages/:id", (req, res) => {
   if (req.session.user) {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
-      userModel.getById(req.params.id, function (resultUser){
-        messageModel.getBySenderAndReceiver(req.session.user[0].id, req.params.id, function (resultRightMessages){
-          messageModel.getBySenderAndReceiver(req.params.id, req.session.user[0].id, function (resultLeftMessages){
-            for (let i = 0; i < resultLeftMessages.length; i++) {
-              resultLeftMessages[i].side = "float-left";
-            }
-            for (let i = 0; i < resultRightMessages.length; i++) {
-              resultRightMessages[i].side = "float-right";
-            }
-            
-            var messages = resultLeftMessages.concat(resultRightMessages);
-            var selfId = req.session.id;
-            var sortedMessages =messages.sort((a,b) => b.createdAt - a.createdAt);
-            var reversedSortedMessages = sortedMessages.reverse();
-            console.log(messages);
-            var gotUser = resultUser[0];
-            res.render("admin/messagesConvo", {user: gotUser, messages: reversedSortedMessages, selfId: selfId});
-          })
-        })
+      userModel.getById(req.params.id, function (resultUser) {
+        messageModel.getBySenderAndReceiver(
+          req.session.user[0].id,
+          req.params.id,
+          function (resultRightMessages) {
+            messageModel.getBySenderAndReceiver(
+              req.params.id,
+              req.session.user[0].id,
+              function (resultLeftMessages) {
+                for (let i = 0; i < resultLeftMessages.length; i++) {
+                  resultLeftMessages[i].side = "float-left";
+                }
+                for (let i = 0; i < resultRightMessages.length; i++) {
+                  resultRightMessages[i].side = "float-right";
+                }
+
+                var messages = resultLeftMessages.concat(resultRightMessages);
+                var selfId = req.session.id;
+                var sortedMessages = messages.sort(
+                  (a, b) => b.createdAt - a.createdAt
+                );
+                var reversedSortedMessages = sortedMessages.reverse();
+                console.log(messages);
+                var gotUser = resultUser[0];
+                res.render("admin/messagesConvo", {
+                  user: gotUser,
+                  messages: reversedSortedMessages,
+                  selfId: selfId,
+                });
+              }
+            );
+          }
+        );
       });
     } else {
       res.redirect("/");
@@ -778,14 +816,13 @@ router.post("/messages/send", (req, res) => {
 
   //console.log(msgText + " " + senderId + " " + receiverId);
 
-  messageModel.insert(senderId, receiverId, msgText, function(status){
-    if(status){
-      res.json({status: 'success'});
+  messageModel.insert(senderId, receiverId, msgText, function (status) {
+    if (status) {
+      res.json({ status: "success" });
+    } else {
+      res.json({ status: "error" });
     }
-    else{
-      res.json({status:'error'});
-    }
-  })
+  });
 });
 
 router.get("/reports", (req, res) => {
@@ -805,7 +842,94 @@ router.post("/reports/donations/download", (req, res) => {
   if (req.session.user) {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
-      
+      eventModel.getAll(function (events) {
+        donationModel.getAllDonationSumGroupedByEvent(function (sums) {
+          // console.log(events);
+          console.log(sums);
+          for (i in events) {
+            events[i].sumAmount = sums[i].sumAmount;
+          }
+          console.log(events);
+
+          let workbook = new Excel.Workbook();
+          let worksheet = workbook.addWorksheet("Donation Report");
+          worksheet.columns = [
+            { header: "Event ID", key: "id" },
+            { header: "Event Name", key: "eventName" },
+            { header: "Creator ID", key: "creatorId" },
+            { header: "Description", key: "description" },
+            { header: "Category Id", key: "categoryId" },
+            { header: "Goal Date", key: "goalDate" },
+            { header: "Goal Amount", key: "goalAmount" },
+            { header: "Collected Amount", key: "sumAmount" },
+            { header: "Approval Status", key: "isAprroved" },
+            { header: "Created At", key: "createdAt" },
+          ];
+
+          worksheet.columns.forEach((column) => {
+            column.width =
+              column.header.length < 12 ? 12 : column.header.length;
+          });
+
+          worksheet.getRow(1).font = { bold: true };
+
+          events.forEach((e, index) => {
+            const rowIndex = index + 2;
+            worksheet.addRow({
+              ...e,
+            });
+          });
+
+          worksheet.addRow({
+            goalDate: "Total: ",
+            goalAmount: {
+              formula: `=SUM(G2:G${events.length + 1})`,
+            },
+            sumAmount: {
+              formula: `=SUM(H2:H${events.length + 1})`,
+            },
+          });
+
+          worksheet.eachRow({ includeEmpty: false }, function (row, rowNumber) {
+            worksheet.getCell(`A${rowNumber}`).border = {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              bottom: { style: "thin" },
+              right: { style: "none" },
+            };
+
+            const insideColumns = ["B", "C", "D", "E", "F", "G", "H", "I", "J"];
+            insideColumns.forEach((v) => {
+              worksheet.getCell(`${v}${rowNumber}`).border = {
+                top: { style: "thin" },
+                bottom: { style: "thin" },
+                left: { style: "none" },
+                right: { style: "none" },
+              };
+            });
+
+            worksheet.getCell(`J${rowNumber}`).border = {
+              top: { style: "thin" },
+              left: { style: "none" },
+              bottom: { style: "thin" },
+              right: { style: "thin" },
+            };
+          });
+
+          res.setHeader(
+            "Content-Type",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          );
+          res.setHeader(
+            "Content-Disposition",
+            "attachment; filename=" + "Donation Report.xlsx"
+          );
+
+          return workbook.xlsx.write(res).then(function () {
+            res.status(200).end();
+          });
+        });
+      });
     } else {
       res.redirect("/");
     }
