@@ -20,6 +20,11 @@
         <h2>Login</h2>
         <br />
         <p class="text-success"><%= alert %></p>
+        <p class="text-danger">
+          <% if (error){%>
+            <%=error[0].msg%>
+          <%}%>
+        </p>
         <form method="post" action="/login">
           <input
             class="form-control"
