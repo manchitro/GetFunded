@@ -5,13 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/abc/css/user.css">
+
   
 </head>
 <body>
 
 <div class="container">
   <h2>Edit Event Form</h2>
-  <form action="/action_page.php">
+  <form action="post">
     <div class="form-group">
       <label for="eventName">eventName:</label>
       <input type="text" class="form-control" id="eventName" name="eventName" value="<%=editlist[0].eventName%>">
@@ -34,10 +36,10 @@
     </div>
     <div class="form-group">
       <label for="Picture">Picture:</label>
-      <input type="file" class="picture" id="picture"  name="picture">
+      <input type="file" class="picture" id="eventPicture"  name="eventPicture">
     </div>
-    <button type="submit" class="btn btn-success">Submit</button>
-    <a href="user/viewEvents" class="btn btn-success">Back</a>
+    <input type="submit" name="submit" class="btn btn-success" value="Confirm">
+    <a href="/user/myEvent" class="btn btn-success">Back</a>
   </form>
 </div>
 

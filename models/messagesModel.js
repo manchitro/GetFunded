@@ -30,6 +30,13 @@ module.exports ={
 			callback(status);
 		});
 	},
+	insertMessage: function(user, callback){
+		var sql = "insert into messages VALUES ('','"+user.senderId+"' , '"+user.receiverId+"' , '"+user.messageText+"', current_timestamp() )";
+		//console.log(sql);
+		db.execute(sql, function(status){
+			callback(status);
+		});
+	},
 	update: function(user, callback){
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
 		var sql= "UPDATE events SET isApproved = 1 where id="+user.data;
@@ -41,6 +48,14 @@ module.exports ={
 		var sql = "DELETE FROM users WHERE id="+id;
         db.execute(sql, function(status){
             callback(status);
+        });
+
+	},
+	getAllMessageById: function(user, callback){
+		var sql = "SELECT * FROM `messages` WHERE senderId = '"+user.senderId+"' AND receiverId ='"+user.receiverId+"' UNION SELECT * FROM `messages` WHERE senderId = '"+user.receiverId+"' AND receiverId ='"+user.senderId+"' ORDER by id";
+
+        db.getResults(sql, function(results){
+            callback(results);
         });
 
 	}

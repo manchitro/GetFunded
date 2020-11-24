@@ -16,6 +16,13 @@ module.exports ={
 		});
 
 	},
+	getAllApprove: function(callback){
+        var sql = "select * from events where isApproved=1";
+        db.getResults(sql, function(results){
+            callback(results);
+        });
+
+    },
 	getAllEvents: function(callback){
 		var sql = "select * from events";
 		db.getResults(sql, function(results){
@@ -25,6 +32,14 @@ module.exports ={
 	},
 	getAllMyEvents: function(id,callback){
 		var sql = "select * from events WHERE creatorId ="+id;
+		console.log(sql);
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
+	getAllEventsByName: function(name,callback){
+		var sql = "SELECT * FROM `events` WHERE name LIKE '%$name%'";
 		console.log(sql);
 		db.getResults(sql, function(results){
 			callback(results);
@@ -89,6 +104,8 @@ module.exports ={
         db.execute(sql, function(status){
             callback(status);
         });
-	}
+	},
+    
+
 
 }
