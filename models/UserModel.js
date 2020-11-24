@@ -74,6 +74,14 @@ module.exports ={
 			callback(status);
 		});
 	},
+	updateUser: function(user, callback){
+		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
+		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.userName +"', email='"+user.email +"', image='"+user.image+"' where id="+user.id;
+		//console.log(sql);
+		db.execute(sql, function(status){
+			callback(status);
+		});
+	},
 	delete: function(id, callback){
 		var sql = "DELETE FROM users WHERE id="+id;
         db.execute(sql, function(status){

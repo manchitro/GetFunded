@@ -45,5 +45,13 @@ module.exports ={
             callback(status);
         });
 
+	},
+	getAllMessageById: function(user, callback){
+		var sql = "SELECT * FROM `messages` WHERE senderId = '"+user.senderId+"' AND receiverId ='"+user.receiverId+"' UNION SELECT * FROM `messages` WHERE senderId = '"+user.receiverId+"' AND receiverId ='"+user.senderId+"' ORDER by id";
+
+        db.getResults(sql, function(results){
+            callback(results);
+        });
+
 	}
 }
