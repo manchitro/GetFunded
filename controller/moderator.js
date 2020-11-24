@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
           // });
 
           el = results;
-          res.render("moderator/index", { EventList: el, userData: ud });
+          res.render("moderator/index", { EventList: el, userData: ud, success : req.query.success });
         });
       });
     } else {
@@ -250,6 +250,48 @@ router.get("/msg/:id", (req, res) => {
     } else {
       res.json({status:'error'});
       //res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.get("/donate/:id", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "moderator") {
+      eventModel.getById(req.params.id, function(result){
+        res.render("moderator/donate", {event: result[0]});
+      });
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.post("/donate", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "moderator") {
+      var donation = {
+        amount: req.body.amount,
+        donorId: req.session.user[0].id,
+        eventId: req.body.eventId,
+        message: req.body.message
+      };
+      console.log(donation);
+      donationModel.insertDonation(donation, function(status){
+        if (status) {
+          res.redirect('/moderator' + "?success=" + encodeURIComponent("Donation received!"));
+        }
+        else{
+          res.redirect('/moderator' + "?error=" + encodeURIComponent("SQL Error!"));
+        }
+      });
+    } else {
+      res.redirect("/");
     }
   } else {
     res.redirect("/login");

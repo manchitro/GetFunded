@@ -17,7 +17,7 @@ module.exports ={
 
 	},
 
-	insertDonate: function(user, callback){
+	insertDonation: function(user, callback){
 			var sql = "INSERT INTO `donations`(`id`, `amount`, `donorId`, `eventId`, `donationMessage`, `createdAt`) VALUES ('','"+user.amount+"' , '"+user.donorId+"' , '"+user.eventId+"' ,  '"+user.donationMessage+"', current_timestamp())";
 
 			//console.log(sql);

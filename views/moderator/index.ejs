@@ -223,6 +223,9 @@
        <tr><td> <label>Email :</td><td> <%= userData[0].email  %>  </label> </td></tr>
         </table>
 
+        <h4>Notifications :</h4> 
+        <p style="color: #4CAF50;" ><%= success  %> </p>
+
 
 
       </div>
@@ -396,9 +399,9 @@ $( document ).ready(function() {
        
 				$.each(result, function(i, result){
 					$('#excelTable').append(
-            
-          " <tr> <th>Event ID</th> <th>Total Donations </th></tr> <tr> <td>"+
-          result.eventId+"</td>" + " <td>" + result.sumfund + "</td> </tr>"
+          
+          " <tr> <th>Event ID</th> <th>Total Donations </th></tr> <tr> <td style='text-align: center' >"+
+          result.eventId+"</td><td style='text-align: center'>" + result.sumfund + "</td> </tr>"
           
           
           )
@@ -429,7 +432,7 @@ $( document ).ready(function() {
          $('#getfeed .getfeeds').append(
            
          " <tr> <th>Event Name</th> <th>ID</th><th>Creator ID</th><th>Description</th><th>Category ID</th> <th>Goal Amount</th><th>Goal Date</th><th>Created At</th><th>Action</th> </tr> <tr> <td>"+
-         result.eventName+"</td>" + " <td>" + result.id + "</td>"+ " <td>" + result.creatorId + "</td>" + " <td>" + result.description + "</td>" + " <td>" + result.categoryId + "</td>" +" <td>" + result.goalAmount + "</td>" +" <td>" + result.goalDate + "</td>" +" <td>" + result.createdAt + "</td> <td> <input type='button' name='donate-"+result.id+"' value='Donate'> </td> </tr> <br> <br> "
+         result.eventName+"</td>" + " <td>" + result.id + "</td>"+ " <td>" + result.creatorId + "</td>" + " <td>" + result.description + "</td>" + " <td>" + result.categoryId + "</td>" +" <td>" + result.goalAmount + "</td>" +" <td>" + result.goalDate + "</td>" +" <td>" + result.createdAt + "</td> <td><a href='/moderator/donate/"+result.id+"'class='w3-bar-item w3-button tablink' >Donate</a> </td> </tr> <br> <br> "
          
          
          
