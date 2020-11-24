@@ -10,6 +10,7 @@ const user = require("./controller/user");
 const admin = require("./controller/admin");
 const moderator = require("./controller/moderator");
 const userSupport = require("./controller/userSupport");
+const expressValidator = require("express-validator");
 const app = express();
 
 //config
@@ -26,6 +27,7 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use(expressValidator());
 
 app.use("/login", login);
 app.use("/signup", signup);

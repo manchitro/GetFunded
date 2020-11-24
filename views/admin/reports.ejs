@@ -15,7 +15,17 @@
     <div class="d-flex">
       <%- include('./partials/nav'); -%>
       <div class="main px-4 py-3 w-100">
-        <h2>Reports</h2>
+        <h2 class="mb-3">Reports</h2>
+        <form action="/admin/reports/donations/download" method="post">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Donations Report</h5>
+              <p class="card-text">Excel sheet containing all event funds info and sum of all funds.</p>
+              <button class="btn btn-primary border-3" type="submit">Download</button>
+            </div>
+          </div>
+          
+        </form>
       </div>
     </div>
   </body>
