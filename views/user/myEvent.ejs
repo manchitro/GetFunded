@@ -5,15 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/abc/css/user.css">
-
+<style type="text/css">
+	*{
+		font-size: 20px;
+		font-family: "Times New Roman", Times, serif; 
+	}
+</style>
 <body>
 
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-  <h3 class="w3-bar-item">Menu</h3>
+<div class="w3-sidebar w3-dark-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">User</h3>
   <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
   <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
+    <a href="/user/message" class="w3-bar-item w3-button">Message</a>
+
    <a href="/logout" class="w3-bar-item w3-button">logout</a>
 
 </div>
@@ -22,9 +30,9 @@
 
 <div class="w3-container w3-light-grey">
 <nav class="navbar navbar-light bg-light justify-content-between">
-	  <a class="navbar-brand" href="/user/viewEvents">Events</a>
+	  <a class="navbar-brand" href="/user/viewEvents">My Events</a>
 	  <form class="form-inline">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	    <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search">
 	  </form>
 	</nav>  
 </div>
@@ -32,42 +40,71 @@
 
 
 <div class="w3-container">
-<div class="container">    
-	  <table class="table table-hover">
+<div class="container">
+<form method="post">   
+	  <table id="events" class="table table-hover">
 	      <tr>
-	        <th>id</th>
-	        <th>eventName</th>
-	        <th>eventPicture</th>
-	        <th>description</th>
-	        <th>goalAmount</th>
-	        <th>goalDate</th>
+	        <th>Id</th>
+	        <th>Event Name</th>
+	        <th>Event Picture</th>
+	        <th>Description</th>
+	        <th>Goal Amount</th>
+	        <th>Goal Date</th>
 	        <th>Action</th>
 	      </tr>
 	    
 
 		  <% for(var i=0; i< myEventlist.length; i++ ){ %>
-		  <tr>
+		  <tr id="rows">
 		  	<td><%= myEventlist[i].id %></td>
 		  	<td><%= myEventlist[i].eventName %></td>
 		  	<td><%= myEventlist[i].eventPicture %></td>
 		  	<td><%= myEventlist[i].description %></td>
 		  	<td><%= myEventlist[i].goalAmount %></td>
-		  	<td><%= myEventlist[i].goalDate.toDateString() %></td>
+		  	<td width="300px"><%= myEventlist[i].goalDate %></td>
 		  	<td>
 		  		<a class="btn btn-primary" href="/user/eventEdit/<%=myEventlist[i].id%>">Edit</a> 
 		  		<a class="btn btn-dark" href="/user/eventDelete/<%=myEventlist[i].id%>">Delete</a>  
-		  		<a class="btn btn-info" href="/user/eventDonate/<%=myEventlist[i].id%>">Donation</a>   
+		  		<a class="btn btn-info" href="/user/eventDonate/<%=myEventlist[i].id%>">Donation</a>
+		  		<a class="btn btn-danger" href="/user/approveDonation/<%=myEventlist[i].id%>">Approve</a>  
 		  	</td>
 		  </tr>
 		  <% } %>
 
 	  </table>
+	  </form> 
 	</div>
 </div>
 
 </div>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+       $('#search').keyup(function(){
+            search_table($(this).val());
+       });
+       function search_table(value){
+            $('#events #rows').each(function(){
+                 var found = 'false'; 
 
+                 $(this).each(function(){
+                      if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                      {
+                           found = 'true';
+                      }
+                 });
+                 if(found == 'true')
+                 {
+                      $(this).show();
+                 }
+                 else
+                 {
+                      $(this).hide();
+                 }
+            });
+       }
+  });
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,6 +1,7 @@
 const express = require("express");
 const userModel = require.main.require("./models/userModel");
 const eventModel = require.main.require("./models/eventModel");
+const messageModel = require.main.require("./models/messagesModel");
 const router = express.Router();
 const moment = require("moment");
 
@@ -597,24 +598,101 @@ router.post("/events/edit", (req, res) => {
 });
 
 router.get("/events/delete/:id", (req, res) => {
-	if (req.session.user) {
-	  // console.log(req.session.user[0].userType);
-	  if (req.session.user[0].userType === "admin") {
-		eventModel.delete(req.params.id, function (status) {
-		  if (status) {
-			res.redirect(
-			  "/admin/events?success=" + encodeURIComponent("Event deleted!")
-			);
-		  } else {
-			res.redirect("/admin/events?error=" + encodeURIComponent("SQL Error"));
-		  }
-		});
-	  } else {
-		res.redirect("/");
-	  }
-	} else {
-	  res.redirect("/login");
-	}
-  });
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "admin") {
+      eventModel.delete(req.params.id, function (status) {
+        if (status) {
+          res.redirect(
+            "/admin/events?success=" + encodeURIComponent("Event deleted!")
+          );
+        } else {
+          res.redirect(
+            "/admin/events?error=" + encodeURIComponent("SQL Error")
+          );
+        }
+      });
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.get("/messages", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "admin") {
+      res.render("admin/messages");
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.get("/messages/:id", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "admin") {
+      userModel.getById(req.params.id, function (resultUser){
+        messageModel.getBySenderAndReceiver(req.session.user[0].id, req.params.id, function (resultRightMessages){
+          messageModel.getBySenderAndReceiver(req.params.id, req.session.user[0].id, function (resultLeftMessages){
+            for (let i = 0; i < resultLeftMessages.length; i++) {
+              resultLeftMessages[i].side = "float-left";
+            }
+            for (let i = 0; i < resultRightMessages.length; i++) {
+              resultRightMessages[i].side = "float-right";
+            }
+            
+            var messages = resultLeftMessages.concat(resultRightMessages);
+            var selfId = req.session.id;
+            var sortedMessages =messages.sort((a,b) => b.createdAt - a.createdAt);
+            var reversedSortedMessages = sortedMessages.reverse();
+            console.log(messages);
+            var gotUser = resultUser[0];
+            res.render("admin/messagesConvo", {user: gotUser, messages: reversedSortedMessages, selfId: selfId});
+          })
+        })
+      });
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.post("/messages/send", (req, res) => {
+  var msgText = req.body.msg;
+  var senderId = req.session.user[0].id;
+  var receiverId = req.body.receiverId;
+
+  //console.log(msgText + " " + senderId + " " + receiverId);
+
+  messageModel.insert(senderId, receiverId, msgText, function(status){
+    if(status){
+      res.json({status: 'success'});
+    }
+    else{
+      res.json({status:'error'});
+    }
+  })
+});
+
+router.get("/reports", (req, res) => {
+  if (req.session.user) {
+    // console.log(req.session.user[0].userType);
+    if (req.session.user[0].userType === "admin") {
+      res.render("admin/reports");
+    } else {
+      res.redirect("/");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
 
 module.exports = router;

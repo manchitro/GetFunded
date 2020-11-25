@@ -211,3 +211,8 @@ router.post('/donateToEvent/:id', (req, res)=>{
 module.exports = router;
 
 
+===================================
+chat with user support 
+share event
+vote
+remove event manager

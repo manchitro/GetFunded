@@ -4,7 +4,7 @@ module.exports ={
 
 	validate: function(user, callback){
 		var sql = "select * from users where (username='"+user.uid+"' or email='"+user.uid+"') and password='"+user.password+"'";
-		console.log(sql);
+		//console.log(sql);
 		db.getResults(sql, function(results){
 			if(results.length > 0){
 				callback(results);
@@ -33,6 +33,13 @@ module.exports ={
 	},
 	getAll: function(callback){
 		var sql = "select * from users";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
+	getAllUserSupport: function(callback){
+		var sql = "select * from users where userType ='userSupport'";
 		db.getResults(sql, function(results){
 			callback(results);
 		});

@@ -6,44 +6,44 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="/abc/css/user.css">
-
+<style type="text/css">
+	*{
+		font-size: 20px;
+		font-family: "Times New Roman", Times, serif; 
+	}
+</style>
 <body>
 
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-  <h3 class="w3-bar-item">Menu</h3>
+<div class="w3-sidebar w3-dark-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">User</h3>
   <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
   <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
+    <a href="/user/message" class="w3-bar-item w3-button">Message</a>
+
    <a href="/logout" class="w3-bar-item w3-button">logout</a>
 </div>
 
 <div style="margin-left:15%">
-
-
-
-
-
 <div class="w3-container">
 <div class="container">    
 	  <form method="post">
 	  <table class="table table-hover">
 	    <tr>
-	      <th>id</th>
-	      <th>amount</th>
-	      <th>donorId</th>
-	      <th>donationMessage</th>
-	      <th>createdAt</th>
+	      <th>Id</th>
+	      <th>Amount</th>
+	      <th>Donor Id</th>
+	      <th>Donation Message</th>
+	      <th>Created At</th>
 	    </tr>
 
-		<%var data = 0;
-		 for(var i=0; i< donationlist.length; i++ ){ 
-		 data = donationlist[i].id ; %>
+		<%  for(var i=0; i< donationlist.length; i++ ){ %>
 		<tr>
 			<td><%= donationlist[i].id %></td>
 			<td><%= donationlist[i].amount %></td>
 			<td><%= donationlist[i].donorId %></td>
 			<td><%= donationlist[i].donationMessage %></td>
-			<td><%= donationlist[i].createdAt.toDateString()%></td>
+			<td><%= donationlist[i].createdAt%></td>
 		</tr>
 		<% } %>
 	  </table>

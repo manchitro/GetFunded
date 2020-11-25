@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<title>Message</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/abc/css/user.css">
+<style type="text/css">
+	*{
+		font-size: 20px;
+		font-family: "Times New Roman", Times, serif; 
+	}
+</style>
+<body>
+
+<div class="w3-sidebar w3-dark-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">User</h3>
+  <a href="/user/viewEvents" class="w3-bar-item w3-button">Events</a>
+  <a href="/user/createEvent" class="w3-bar-item w3-button">Create Event</a>
+  <a href="/user/myEvent" class="w3-bar-item w3-button">My Event</a>
+    <a href="/user/message" class="w3-bar-item w3-button">Message</a>
+
+   <a href="/logout" class="w3-bar-item w3-button">logout</a>
+</div>
+
+<div style="margin-left:15%">
+
+
+<div class="w3-container">
+<div class="container">    
+	  <form method="post">
+	  <table class="table table-hover">
+	  	 <tr>
+	      <th>Sender Id</th>
+	      <th>Message</th>
+	      <th>Created At</th>
+
+	  </tr>
+
+		<% for(var i=0; i< msgToUserlist.length; i++ ){ 
+		 %>
+		<tr>
+			<td><%= msgToUserlist[i].senderId %></td>
+			<td><%= msgToUserlist[i].messageText %></td>
+			<td width="350px" height="50px"><%= msgToUserlist[i].createdAt%></td>
+		</tr>
+		<% } %>
+	  	<tr>
+	  		<td colspan="3">
+	  			<input class="form-control mr-sm-2" name="messageToUs" type="text" placeholder="Message..." aria-label="Search">
+	  		</td>
+	  		<td>
+	  			<input type="submit" class="btn btn-primary" name="submit" value="Send">
+	  		    <a href="/user/message" class="btn btn-success">Back</a>
+
+	  		</td>
+	  	</tr>
+	  	
+	  </table>
+	  </form>
+	</div>
+</div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>u

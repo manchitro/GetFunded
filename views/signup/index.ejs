@@ -20,6 +20,11 @@
         <h2>Signup</h2>
         <br />
         <p class="text-danger"><%= alert %></p>
+        <!-- <p class="text-danger">
+          <% if (error){%>
+            <%=error[0].msg%>
+          <%}%>
+        </p> -->
         <form method="post" action="/signup">
           <input
             class="form-control"
@@ -85,4 +90,3 @@
     confirmPassword.onkeyup = validatePassword;
   </script>
 </html>
-
