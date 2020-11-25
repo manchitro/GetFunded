@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>All User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/abc/css/userSupport.css">
 <meta charset="utf-8">
@@ -9,6 +10,15 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="jquery-3.5.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+  #card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+</style>
 </head>
 <body>
 <section>
@@ -21,23 +31,21 @@
 </section>
 <section>
 <div class="sidebar">
+  <a href="/userSupport" class="w3-bar-item w3-button">Home</a>
   <a style="background-color: lightgray" href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
   <a href="/userSupport/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/userSupport/message" class="w3-bar-item w3-button">Message</a>
   <a href="/userSupport/myProfile" class="w3-bar-item w3-button">My Profile</a>
   <a style="color: red" href="/logout" class="w3-bar-item w3-button">logout</a>
 </div>
-<div style="margin-left:15%">
+<div style="margin-left:15%; ">
   <div class="w3-container">
-	    <div class="container">    
-			<table class="table table-hover" id="events" >
+	    <div class="container" id="card">    
+			<table class="table table-hover" id="events" style="margin-top: 20%">
 			  <tr>
-			    <th>id</th>
-			    <th>name</th>
-			    <th>userName</th>
-			    <th>email</th>
-			    <th>userType</th>
-			    <th>createdAt</th>
+			    <th>Id</th>
+			    <th>Name</th>
+			    <th>Email</th>
 			    <th>Action</th>
 			  </tr>
 
@@ -45,12 +53,10 @@
 			  <tr id="rows">
 			  	<td><%= userlist[i].id %></td>
 			  	<td><%= userlist[i].name %></td>
-			  	<td><%= userlist[i].userName %></td>
 			  	<td><%= userlist[i].email %></td>
-			  	<td><%= userlist[i].userType %></td>
-			  	<td><%= userlist[i].createdAt.toDateString() %></td>
 			  	<td>
-			  		<a class="btn btn-dark" href="/userSupport/userEvents/<%=userlist[i].id%>">Events</a> 
+            <a class="btn btn-dark" href="/userSupport/userEvents/<%=userlist[i].id%>">Events</a> 
+			  		<a class="btn btn-info" href="/userSupport/userDetails/<%=userlist[i].id%>">Details</a> 
 			  	</td>
 			  </tr>
 			  <% } %>
@@ -58,7 +64,7 @@
 			</table>
 			<a id="dlink"  style="display:none;"></a>
 
-            <input type="button" onclick="tableToExcel('events', 'users', 'allUsers.xls')" value="Export to Excel">
+      <input class="btn btn-success" type="button" onclick="tableToExcel('events', 'users', 'allUsers.xls')" value="Export to Excel">
 		</div>
 	</div>
 

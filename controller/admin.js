@@ -1,8 +1,6 @@
 const express = require("express");
 const userModel = require.main.require("./models/userModel");
 const eventModel = require.main.require("./models/eventModel");
-const messageModel = require.main.require("./models/messagesModel");
-const donationModel = require.main.require("./models/donationModel")
 const router = express.Router();
 const moment = require("moment");
 
@@ -499,68 +497,20 @@ router.get("/events", (req, res) => {
   }
 });
 
-router.get("/events/:id", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      eventModel.getById(req.params.id, function (eventResult) {
-        //console.log(result[0]);
-        userModel.getById(eventResult[0].creatorId, function (creatorResult){
-          //console.log(creatorResult[0]);
-          donationModel.getDonationSumByEventId(eventResult[0].id, function (donationSumResult){
-            //console.log(donationSumResult);
-            donationModel.getAllDonationByEventId(eventResult[0].id, function (donationsResult){
-              //console.log(donationsResult);
-              res.render("admin/eventView", {
-                errorMessage: req.query.error,
-                successMessage: req.query.success,
-                event: eventResult[0],
-                creator: creatorResult[0],
-                donationSum: donationSumResult[0].sumAmount,
-                donations: donationsResult,
-                moment: moment,
-              });
-            });
-          });
-        });
-      });
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
 router.get("/events/approve/:id", (req, res) => {
   if (req.session.user) {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
       eventId = req.params.id;
-      console.log(req.query.return);
       eventModel.approve(eventId, function (status) {
         if (status) {
-          if(!req.query.return){
-            res.redirect(
-              "/admin/events?success=" + encodeURIComponent("Event approved!")
-            );
-          }
-          else{
-            res.redirect(
-              "/admin/events/"+eventId+"?success=" + encodeURIComponent("Event approved!")
-            );
-          }
+          res.redirect(
+            "/admin/events?success=" + encodeURIComponent("Event approved!")
+          );
         } else {
-          if(!req.query.return){
-            res.redirect(
-              "/admin/events?error=" + encodeURIComponent("SQL Error!")
-            );
-          }
-          else{
-            res.redirect(
-              "/admin/events/"+eventId+"?error=" + encodeURIComponent("SQL Error!")
-            );
-          }
+          res.redirect(
+            "/admin/events?error=" + encodeURIComponent("SQL Error!")
+          );
         }
       });
     } else {
@@ -576,30 +526,15 @@ router.get("/events/decline/:id", (req, res) => {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
       eventId = req.params.id;
-      console.log(req.query.return);
       eventModel.decline(eventId, function (status) {
         if (status) {
-          if(!req.query.return){
-            res.redirect(
-              "/admin/events?success=" + encodeURIComponent("Event declined!")
-            );
-          }
-          else{
-            res.redirect(
-              "/admin/events/"+eventId+"?success=" + encodeURIComponent("Event declined!")
-            );
-          }
+          res.redirect(
+            "/admin/events?success=" + encodeURIComponent("Event declined!")
+          );
         } else {
-          if(!req.query.return){
-            res.redirect(
-              "/admin/events?error=" + encodeURIComponent("SQL Error!")
-            );
-          }
-          else{
-            res.redirect(
-              "/admin/events/"+eventId+"?error=" + encodeURIComponent("SQL Error!")
-            );
-          }
+          res.redirect(
+            "/admin/events?error=" + encodeURIComponent("SQL Error!")
+          );
         }
       });
     } else {
@@ -662,156 +597,24 @@ router.post("/events/edit", (req, res) => {
 });
 
 router.get("/events/delete/:id", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      eventModel.delete(req.params.id, function (status) {
-        if (status) {
-          res.redirect(
-            "/admin/events?success=" + encodeURIComponent("Event deleted!")
-          );
-        } else {
-          res.redirect(
-            "/admin/events?error=" + encodeURIComponent("SQL Error")
-          );
-        }
-      });
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
-router.get("/donate/:id", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      eventModel.getById(req.params.id, function(result){
-        res.render("admin/donate", {event: result[0]});
-      });
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
-router.post("/donate", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      var donation = {
-        amount: req.body.amount,
-        donorId: req.session.user[0].id,
-        eventId: req.body.eventId,
-        message: req.body.message
-      };
-      console.log(donation);
-      donationModel.insertDonation(donation, function(status){
-        if (status) {
-          res.redirect('/admin/events/' + req.body.eventId + "?success=" + encodeURIComponent("Donation received!"));
-        }
-        else{
-          res.redirect('/admin/events/' + req.body.eventId + "?error=" + encodeURIComponent("SQL Error!"));
-        }
-      });
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
-router.get("/messages", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      res.render("admin/messages");
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
-router.get("/messages/:id", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      userModel.getById(req.params.id, function (resultUser){
-        messageModel.getBySenderAndReceiver(req.session.user[0].id, req.params.id, function (resultRightMessages){
-          messageModel.getBySenderAndReceiver(req.params.id, req.session.user[0].id, function (resultLeftMessages){
-            for (let i = 0; i < resultLeftMessages.length; i++) {
-              resultLeftMessages[i].side = "float-left";
-            }
-            for (let i = 0; i < resultRightMessages.length; i++) {
-              resultRightMessages[i].side = "float-right";
-            }
-            
-            var messages = resultLeftMessages.concat(resultRightMessages);
-            var selfId = req.session.id;
-            var sortedMessages =messages.sort((a,b) => b.createdAt - a.createdAt);
-            var reversedSortedMessages = sortedMessages.reverse();
-            console.log(messages);
-            var gotUser = resultUser[0];
-            res.render("admin/messagesConvo", {user: gotUser, messages: reversedSortedMessages, selfId: selfId});
-          })
-        })
-      });
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
-router.post("/messages/send", (req, res) => {
-  var msgText = req.body.msg;
-  var senderId = req.session.user[0].id;
-  var receiverId = req.body.receiverId;
-
-  //console.log(msgText + " " + senderId + " " + receiverId);
-
-  messageModel.insert(senderId, receiverId, msgText, function(status){
-    if(status){
-      res.json({status: 'success'});
-    }
-    else{
-      res.json({status:'error'});
-    }
-  })
-});
-
-router.get("/reports", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      res.render("admin/reports");
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
-
-router.post("/reports/donations/download", (req, res) => {
-  if (req.session.user) {
-    // console.log(req.session.user[0].userType);
-    if (req.session.user[0].userType === "admin") {
-      
-    } else {
-      res.redirect("/");
-    }
-  } else {
-    res.redirect("/login");
-  }
-});
+	if (req.session.user) {
+	  // console.log(req.session.user[0].userType);
+	  if (req.session.user[0].userType === "admin") {
+		eventModel.delete(req.params.id, function (status) {
+		  if (status) {
+			res.redirect(
+			  "/admin/events?success=" + encodeURIComponent("Event deleted!")
+			);
+		  } else {
+			res.redirect("/admin/events?error=" + encodeURIComponent("SQL Error"));
+		  }
+		});
+	  } else {
+		res.redirect("/");
+	  }
+	} else {
+	  res.redirect("/login");
+	}
+  });
 
 module.exports = router;

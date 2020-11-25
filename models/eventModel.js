@@ -87,12 +87,6 @@ module.exports ={
         });
 
 	},
-	deleteEvent: function(id, callback){
-		var sql = "DELETE FROM events WHERE id="+id;
-        db.execute(sql, function(status){
-            callback(status);
-        });
-	},
 	approve: function(id, callback){
 		var sql = "UPDATE events SET isApproved = 1 where id="+id;
 		db.execute(sql, function(status){
@@ -111,6 +105,14 @@ module.exports ={
             callback(status);
         });
 	},
+	countEventbyId: function(id,callback){
+		var sql = "SELECT COUNT(id) as number from events WHERE id="+id;
+		console.log(sql);
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	}
     
 
 

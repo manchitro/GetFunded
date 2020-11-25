@@ -1,71 +1,60 @@
 <!DOCTYPE html>
 <html>
-<title>All User</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>My Profile</title>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 315px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+#dd {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 300px;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+</head>
 <body>
 
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-  <h3 class="w3-bar-item">GetFunded</h3>
-  <a style="background-color: lightgray" href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
-  <a href="/userSupport/viewEvents" class="w3-bar-item w3-button">Events</a>
-  <a href="/userSupport/message" class="w3-bar-item w3-button">Message</a>
-  <a href="/userSupport/myProfile" class="w3-bar-item w3-button">My Profile</a>
-  <a style="color: red"  href="/logout" class="w3-bar-item w3-button">logout</a>
+<h2 style="text-align:center">User Profile</h2>
+<div class="card">
+  <img src="/abc/img/<%= users[0].image%>" style="width:100%">
+  <h1><%= users[0].name%></h1>
+  <p class="title"><%= users[0].userName%></p>
+  <p class="title"><%= users[0].email%></p>
+  <%= users[0].userType%>
+  <div style="margin: 24px 0;">
+    Total OF Eventes:<%=events[0].number%>
+  </div>
+  <a href="/userSupport/allUser" id="dd">Back</a>
 </div>
 
-<div style="margin-left:15%">
-
-<div class="w3-container w3-light-grey">
-<nav class="navbar navbar-light bg-light justify-content-between">
-	  <a class="navbar-brand" href="/userSupport/viewEvents">Events</a>
-	  <form class="form-inline">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	  </form>
-	</nav>  
-</div>
-
-
-
-<div class="w3-container">
-<div class="container">    
-	  <table class="table table-hover">
-	      <tr>
-	        <th>id</th>
-	        <th>eventName</th>
-	        <th>eventPicture</th>
-	        <th>description</th>
-	        <th>goalAmount</th>
-	        <th>goalDate</th>
-	        <th>Action</th>
-	      </tr>
-	    
-
-		  <% for(var i=0; i< eventlist.length; i++ ){ %>
-		  <tr>
-		  	<td><%= eventlist[i].id %></td>
-		  	<td><%= eventlist[i].eventName %></td>
-		  	<td><%= eventlist[i].eventPicture %></td>
-		  	<td><%= eventlist[i].description %></td>
-		  	<td><%= eventlist[i].goalAmount %></td>
-		  	<td><%= eventlist[i].goalDate %></td>
-		  	<td>
-		  		<a href="/user/eventMore/<%=eventlist[i].id%>">More</a>  
-		  	</td>
-		  </tr>
-		  <% } %>
-
-	  </table>
-	</div>
-</div>
-
-</div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

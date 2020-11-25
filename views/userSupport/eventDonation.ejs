@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<title>Event Donation</title>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/abc/css/userSupport.css">
@@ -19,6 +20,7 @@
 </section>
 <section>
 <div class="sidebar">
+  <a href="/userSupport" class="w3-bar-item w3-button">Home</a>
   <a href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
   <a style="background-color: lightgray"href="/userSupport/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a href="/userSupport/message" class="w3-bar-item w3-button">Message</a>
@@ -31,11 +33,11 @@
 	    <form method="post">
 		    <table class="table table-hover">
 			  <tr>
-			    <th width="10%">id</th>
-			    <th>amount</th>
-			    <th>donorId</th>
-			    <th>donationMessage</th>
-			    <th>createdAt</th>
+			    <th width="15%">id</th>
+			    <th>Amount</th>
+			    <th>DonorId</th>
+			    <th>Donation Message</th>
+			    <th>CreatedAt</th>
 			  </tr>
 			  <% for(var i=0; i< donationlist.length; i++ ){ %>
 			  <tr>
@@ -47,8 +49,8 @@
 			  </tr>
 			  <% } %>
 			  <tr>
-			  	<td colspan="2"><input class="form-control" type="text" placeholder="Amount" name="amount" required /></td>
-			  	<td colspan="2"><textarea class="form-control" type="text" placeholder="Donation Message" name="donationMessage" required></textarea>
+			  	<td><input class="form-control" type="text" placeholder="Amount" name="amount" required /></td>
+			  	<td colspan="3"><input class="form-control" type="text" placeholder="Donation Message" name="donationMessage" required>
 			  	</td>
 			  	<td>
 			  	<input type="submit" name="donate" class="btn btn-dark" value="Donate">

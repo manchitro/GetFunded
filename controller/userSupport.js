@@ -7,10 +7,24 @@ const messagesModel = require.main.require("./models/messagesModel");
 const router = express.Router();
 
 router.get('/', (req, res)=>{
-  if(req.cookies['uname'] != null){
-    res.render('userSupport/index');
+  if(req.session.user != null){
+    res.render('userSupport/index',{success : "No notifications yet!" });
   }else{
     res.redirect('/login');
+  }
+})
+
+router.get('/userSupport', (req, res)=>{
+  if(req.cookies['uname'] != null){
+   if(req.query.success){
+     res.render('userSupport/index',{success : req.query.success});
+   }
+   else{
+        res.render('userSupport/index',{success : "No notifications yet"});
+   } 
+   
+  }else{
+    res.redirect('/userSupport/index');
   }
 })
 
@@ -70,7 +84,7 @@ router.post('/eventDonation/:id', (req, res)=>{
 
   donationModel.insertDonate(user, function(status){
     if(status){
-      res.redirect('/userSupport');
+      res.redirect('/userSupport/userSupport' + "?success=" + encodeURIComponent("Donation received!"));
     }else{
       res.redirect('/userSupport/donateToEvent/user.eventId');
     }
@@ -161,5 +175,42 @@ router.post('/editProfile',(req,res)=>{
     }
   });
 });
+router.get('/userDetails/:id', (req, res)=>{
+  var data = req.params.id;
+
+  userModel.getById(data,function(userResults){
+    eventModel.countEventbyId(data,function(eventResults){
+      console.log(userResults);
+      console.log(eventResults);
+      res.render('userSupport/userDetails', {users: userResults, events: eventResults});
+       });
+    });
+})
+
+router.get('/deleteMessage/:id', (req, res)=>{
+  var id = req.params.id;
+    messagesModel.getById(id,function(results){
+    console.log(results);
+        res.render('userSupport/deleteMessage', {messagelist : results});
+    });
+})
+router.post('/deleteMessage/:id',(req,res)=>{
+  var data = req.params.id;
+  messagesModel.deleteMessage(data,function(status){
+    if (status) {
+      res.redirect('/userSupport/message');
+    }else{
+      res.redirect('/userSupport?sql_error!!');
+    }
+  });
+});
+
+router.get('/pinMessage/:id', (req, res)=>{
+  var data = req.params.id;
+    messagesModel.getById(data,function(results){
+    console.log("haaaaaaaaa");
+        res.render('userSupport/pinMessage',{meslist: results});
+    });
+})
 
 module.exports = router;

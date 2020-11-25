@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Message</title>
+<title>Message Box</title>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/abc/css/userSupport.css">
@@ -22,6 +22,7 @@
 </section>
 <section>
 <div class="sidebar">
+  <a href="/userSupport" class="w3-bar-item w3-button">Home</a>
   <a href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
   <a href="/userSupport/viewEvents" class="w3-bar-item w3-button">Events</a>
   <a style="background-color: lightgray" href="/userSupport/message" class="w3-bar-item w3-button">Message</a>
@@ -34,20 +35,20 @@
       <form method="post">    
 			<table class="table table-hover" id="events">
 			  <tr>
-			    <th>createdAt</th>
-			    <th>senderId</th>
-			    <th>messageText</th>
+			    <th>CreatedAt</th>
+			    <th>SenderId</th>
+			    <th>MessageText</th>
           <th>Action</th>
 			  </tr>
 
 			  <% for(var i=0; i< messagelist.length; i++ ){ %>
-			  <tr>
+			  <tr id="rows">
 			  	<td width="320px"><%= messagelist[i].createdAt %></td>
 			  	<td><%= messagelist[i].senderId %></td>
 			  	<td><%= messagelist[i].messageText %></td>
           <td>
-            <a class="btn btn-danger" href="userSupport/deletMessage/<%=messagelist[i].id %>">Delete</a>
-            <a class="btn btn-success" href="userSupport/deletPin/<%=messagelist[i].id %>">Pin</a>
+            <a class="btn btn-danger" href="/userSupport/deleteMessage/<%=messagelist[i].id%>">Delete</a>
+            <a class="btn btn-info" href="/userSupport/pinMessage/<%=messagelist[i].id%>">Pin</a>
           </td>
 			  </tr>
 			  <% } %>

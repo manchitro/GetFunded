@@ -3,28 +3,20 @@ const db = require('./db');
 module.exports ={
 	getById: function(id, callback){
 		var sql = "select * from messages WHERE id="+id;
-
         db.getResults(sql, function(results){
             callback(results);
         });
 
 	},
 	getAll: function(callback){
-		var sql = "select * from messages";
+		var sql = "select * from events";
 		db.getResults(sql, function(results){
 			callback(results);
 		});
 
 	},
-	getBySenderAndReceiver: function (senderId, receiverId, callback){
-		var sql = "select * from messages where senderId='"+senderId+"' and receiverId='"+receiverId+"'";
-		db.getResults(sql, function(results){
-			callback(results);
-		});
-
-	},
-	insert: function(senderId, receiverId, message, callback){
-		var sql = "insert into messages (senderId, receiverId, messageText, createdAt) VALUES ('"+senderId+"' , '"+receiverId+"' , '"+message+"', current_timestamp() )";
+	insert: function(sId,message, callback){
+		var sql = "insert into messages (senderId, 	receiverId, messageText, createdAt) VALUES (1 , '"+sId+"' ,  '"+message+"', current_timestamp() )";
 		
 		//console.log(sql);
 
@@ -32,14 +24,28 @@ module.exports ={
 			callback(status);
 		});
 	},
-	update: function(id, message, callback){
+	insertMessage: function(user, callback){
+		var sql = "insert into messages VALUES ('','"+user.senderId+"' , '"+user.receiverId+"' , '"+user.messageText+"', current_timestamp() )";
+		//console.log(sql);
+		db.execute(sql, function(status){
+			callback(status);
+		});
+	},
+	update: function(user, callback){
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
-		var sql= "UPDATE messages SET messageText = '"+message+"' where id="+id;
+		var sql= "UPDATE events SET isApproved = 1 where id="+user.data;
 		db.execute(sql, function(status){
 			callback(status);
 		});
 	},
 	delete: function(id, callback){
+		var sql = "DELETE FROM users WHERE id="+id;
+        db.execute(sql, function(status){
+            callback(status);
+        });
+
+	},
+	deleteMessage: function(id, callback){
 		var sql = "DELETE FROM messages WHERE id="+id;
         db.execute(sql, function(status){
             callback(status);
