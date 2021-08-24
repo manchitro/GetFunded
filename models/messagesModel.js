@@ -13,13 +13,12 @@ module.exports ={
 		db.getResults(sql, function(results){
 			callback(results);
 		});
-
 	},
-	insert: function(sId,message, callback){
-		var sql = "insert into messages (senderId, 	receiverId, messageText, createdAt) VALUES (1 , '"+sId+"' ,  '"+message+"', current_timestamp() )";
-		
-		//console.log(sql);
 
+
+	insert: function(senderId, receiverId, message, callback){
+		var sql = "insert into messages (senderId, receiverId, messageText, createdAt) VALUES ('"+senderId+"' , '"+receiverId+"' , '"+message+"', current_timestamp() )";
+		console.log("Sql--",sql);
 		db.execute(sql, function(status){
 			callback(status);
 		});
@@ -50,7 +49,6 @@ module.exports ={
         db.execute(sql, function(status){
             callback(status);
         });
-
 	},
 	getAllMessageById: function(user, callback){
 		var sql = "SELECT * FROM `messages` WHERE senderId = '"+user.senderId+"' AND receiverId ='"+user.receiverId+"' UNION SELECT * FROM `messages` WHERE senderId = '"+user.receiverId+"' AND receiverId ='"+user.senderId+"' ORDER by id";
@@ -58,6 +56,5 @@ module.exports ={
         db.getResults(sql, function(results){
             callback(results);
         });
-
 	}
 }

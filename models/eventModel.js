@@ -4,7 +4,7 @@ module.exports ={
 
 	getById: function(id, callback){
 		var sql = "select * from events WHERE id="+id;
-
+ console.log(sql);
         db.getResults(sql, function(results){
             callback(results);
         });
@@ -17,12 +17,13 @@ module.exports ={
 
 	},
 	getAllApprove: function(callback){
-        var sql = "select * from events where isApproved=1";
-        db.getResults(sql, function(results){
-            callback(results);
-        });
 
-    },
+		var sql = "select * from events where isApproved=1";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+
+	},
 	getAllEvents: function(callback){
 		var sql = "select * from events";
 		db.getResults(sql, function(results){
@@ -113,7 +114,4 @@ module.exports ={
 		});
 
 	}
-    
-
-
 }

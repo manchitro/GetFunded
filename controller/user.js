@@ -157,9 +157,11 @@ router.post('/createEvent/:id', (req, res)=>{
 		}else{
 			res.redirect('user/createEvent/:id');
 		}
+
 	});
 });
   
+
 router.post('/reportToEvent/:id', (req, res)=>{
 	var user = {
 		creatorId: 	req.body.creatorId,
@@ -203,7 +205,9 @@ router.post('/donateToEvent/:id', (req, res)=>{
 		}else{
 			res.redirect('user/donateToEvent/:id');
 		}
+
 	});
 });	
 
 module.exports = router;
+
