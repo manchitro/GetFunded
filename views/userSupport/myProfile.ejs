@@ -43,17 +43,19 @@ button:hover, a:hover {
 </head>
 <body>
 
-<h2 style="text-align:center">User Profile</h2>
+<h2 style="text-align:center">My Profile</h2>
+
 <div class="card">
-  <img src="/abc/img/<%= users[0].image%>" style="width:100%">
-  <h1><%= users[0].name%></h1>
-  <p class="title"><%= users[0].userName%></p>
-  <p class="title"><%= users[0].email%></p>
-  <%= users[0].userType%>
+  <img src="/abc/img/<%= profilelist[0].image%>" style="width:100%">
+  <h1><%= profilelist[0].name%></h1>
+  <p class="title"><%= profilelist[0].email%></p>
   <div style="margin: 24px 0;">
-    Total OF Eventes:<%=events[0].number%>
+    <a href="https://github.com/AbdullahIsha"><i class="fa fa-github"></i></a> 
+    <a href="https://twitter.com/shahria72632736"><i class="fa fa-twitter"></i></a>  
+    <a href="https://www.linkedin.com/in/shahariar-isha-b49ba0175/"><i class="fa fa-linkedin"></i></a>  
+    <a href="https://www.facebook.com/shahriar.isha"><i class="fa fa-facebook"></i></a> 
   </div>
-  <a href="/userSupport/allUser" id="dd">Back</a>
+  <a href="/userSupport/editProfile" id="dd">Edit</a>
 </div>
 
 </body>

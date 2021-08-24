@@ -4,7 +4,7 @@ module.exports ={
 
 	validate: function(user, callback){
 		var sql = "select * from users where (username='"+user.uid+"' or email='"+user.uid+"') and password='"+user.password+"'";
-		//console.log(sql);
+		console.log(sql);
 		db.getResults(sql, function(results){
 			if(results.length > 0){
 				callback(results);
@@ -57,7 +57,6 @@ module.exports ={
 		});
 
 	},
-	
 	insert: function(user, callback){
 		var sql = "insert into users (name, username, email, password, usertype, createdat) VALUES ('"+user.name+"' , '"+user.username+"' ,  '"+user.email+"' , '"+user.password+"' , '"+user.userType+"', current_timestamp() )";
 		
@@ -70,6 +69,14 @@ module.exports ={
 	update: function(user, callback){
 		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
 		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.username +"', email='"+user.email +"' where id="+user.id;
+		//console.log(sql);
+		db.execute(sql, function(status){
+			callback(status);
+		});
+	},
+	updateUser: function(user, callback){
+		//var sql = "update user set ('', '"+user.username+"' , '"+user.password+"' , '"+user.type+"')";
+		var sql= "UPDATE users SET name='"+user.name+"', username ='"+user.userName +"', email='"+user.email +"', image='"+user.image+"' where id="+user.id;
 		//console.log(sql);
 		db.execute(sql, function(status){
 			callback(status);

@@ -4,6 +4,7 @@ const userModel = require.main.require("./models/userModel");
 const eventModel = require.main.require("./models/eventModel");
 const messageModel = require.main.require("./models/messagesModel");
 const donationModel = require.main.require("./models/donationModel");
+
 const router = express.Router();
 const moment = require("moment");
 
@@ -539,14 +540,15 @@ router.get("/events/:id", (req, res) => {
   }
 });
 
+
 router.get("/events/approve/:id", (req, res) => {
   if (req.session.user) {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
       eventId = req.params.id;
-      console.log(req.query.return);
       eventModel.approve(eventId, function (status) {
         if (status) {
+
           if (!req.query.return) {
             res.redirect(
               "/admin/events?success=" + encodeURIComponent("Event approved!")
@@ -587,9 +589,9 @@ router.get("/events/decline/:id", (req, res) => {
     // console.log(req.session.user[0].userType);
     if (req.session.user[0].userType === "admin") {
       eventId = req.params.id;
-      console.log(req.query.return);
       eventModel.decline(eventId, function (status) {
         if (status) {
+
           if (!req.query.return) {
             res.redirect(
               "/admin/events?success=" + encodeURIComponent("Event declined!")

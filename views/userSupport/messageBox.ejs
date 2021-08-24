@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
+<title>Message Box</title>
 <head>
-<title>All User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/abc/css/userSupport.css">
 <meta charset="utf-8">
@@ -10,15 +10,6 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="jquery-3.5.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style type="text/css">
-  #card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 500px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-}
-</style>
 </head>
 <body>
 <section>
@@ -32,45 +23,45 @@
 <section>
 <div class="sidebar">
   <a href="/userSupport" class="w3-bar-item w3-button">Home</a>
-  <a style="background-color: lightgray" href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
+  <a href="/userSupport/allUser" class="w3-bar-item w3-button">Users</a>
   <a href="/userSupport/viewEvents" class="w3-bar-item w3-button">Events</a>
-  <a href="/userSupport/message" class="w3-bar-item w3-button">Message</a>
+  <a style="background-color: lightgray" href="/userSupport/message" class="w3-bar-item w3-button">Message</a>
   <a href="/userSupport/myProfile" class="w3-bar-item w3-button">My Profile</a>
   <a style="color: red" href="/logout" class="w3-bar-item w3-button">logout</a>
 </div>
-<div style="margin-left:15%; ">
+<div style="margin-left:15%">
   <div class="w3-container">
-	    <div class="container" id="card">    
-			<table class="table table-hover" id="events" style="margin-top: 20%">
+	    <div class="container">
+      <form method="post">    
+			<table class="table table-hover" id="events">
 			  <tr>
-			    <th>Id</th>
-			    <th>Name</th>
-			    <th>Email</th>
-			    <th>Action</th>
+			    <th>CreatedAt</th>
+			    <th>SenderId</th>
+			    <th>MessageText</th>
+          <th>Action</th>
 			  </tr>
 
-			  <% for(var i=0; i< userlist.length; i++ ){ %>
+			  <% for(var i=0; i< messagelist.length; i++ ){ %>
 			  <tr id="rows">
-			  	<td><%= userlist[i].id %></td>
-			  	<td><%= userlist[i].name %></td>
-			  	<td><%= userlist[i].email %></td>
-			  	<td>
-            <a class="btn btn-dark" href="/userSupport/userEvents/<%=userlist[i].id%>">Events</a> 
-			  		<a class="btn btn-info" href="/userSupport/userDetails/<%=userlist[i].id%>">Details</a> 
-			  	</td>
+			  	<td width="320px"><%= messagelist[i].createdAt %></td>
+			  	<td><%= messagelist[i].senderId %></td>
+			  	<td><%= messagelist[i].messageText %></td>
+          <td>
+            <a class="btn btn-danger" href="/userSupport/deleteMessage/<%=messagelist[i].id%>">Delete</a>
+            <a class="btn btn-info" href="/userSupport/pinMessage/<%=messagelist[i].id%>">Pin</a>
+          </td>
 			  </tr>
 			  <% } %>
+        <tr>
+          <td colspan="3"><input class="form-control" type="text" name="messageText"></td>
+          <td><input class="btn btn-info" type="submit" name="submit" value="Send..."></td>
+        </tr>
 
 			</table>
-			<a id="dlink"  style="display:none;"></a>
-
-      <input class="btn btn-success" type="button" onclick="tableToExcel('events', 'users', 'allUsers.xls')" value="Export to Excel">
+      </form>
 		</div>
 	</div>
-
 </section>
-
-
 <script>
   $(document).ready(function(){
        $('#search').keyup(function(){
@@ -97,21 +88,6 @@
             });
        }
   });
-  var tableToExcel = (function () {
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        return function (table, name, filename) {
-            if (!table.nodeType) table = document.getElementById(table)
-            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-
-            document.getElementById("dlink").href = uri + base64(format(template, ctx));
-            document.getElementById("dlink").download = filename;
-            document.getElementById("dlink").click();
-
-        }
-    })()
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

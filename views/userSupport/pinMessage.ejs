@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
-<title>My Profile</title>
+<title>Pin Message</title>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -43,18 +42,19 @@ button:hover, a:hover {
 </head>
 <body>
 
-<h2 style="text-align:center">User Profile</h2>
+<h2 style="text-align:center">Pin Message</h2>
 <div class="card">
-  <img src="/abc/img/<%= users[0].image%>" style="width:100%">
-  <h1><%= users[0].name%></h1>
-  <p class="title"><%= users[0].userName%></p>
-  <p class="title"><%= users[0].email%></p>
-  <%= users[0].userType%>
+  <form method="post">
+  
+  <p class="title">Are you sure pin this message?</p>
+  <p class="title"></p>
+  
   <div style="margin: 24px 0;">
-    Total OF Eventes:<%=events[0].number%>
+    <%= meslist[0].messageText%>
   </div>
-  <a href="/userSupport/allUser" id="dd">Back</a>
+  <input type="submit" name="submit" value="Pin" id="dd">
+  </form>
 </div>
 
 </body>
-</html>
+</html>s
